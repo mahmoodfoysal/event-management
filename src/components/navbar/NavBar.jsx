@@ -21,7 +21,7 @@ const NavBar = () => {
               href="/"
               className="font-display text-2xl font-extrabold tracking-tighter hover:opacity-80 transition-opacity"
             >
-              EVENT<span className="text-primary">NEXUS</span>
+              Odyssey<span className="text-primary"> Event Management</span>
             </Link>
           </div>
 
