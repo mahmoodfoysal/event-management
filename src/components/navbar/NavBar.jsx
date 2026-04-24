@@ -128,22 +128,35 @@ const NavBar = () => {
             </li>
           ))}
 
-          <li>
-            <Link
-              href="/login"
-              className="text-lg font-sans py-3 border-b border-white/5"
-            >
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/register"
-              className="text-lg font-sans py-3 border-b border-white/5"
-            >
-              Register
-            </Link>
-          </li>
+          {user ? (
+            <li onClick={logout}>
+              <Link
+                href="/"
+                className="text-lg font-sans py-3 border-b border-white/5"
+              >
+                Logout
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li>
+                <Link
+                  href="/login"
+                  className="text-lg font-sans py-3 border-b border-white/5"
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/register"
+                  className="text-lg font-sans py-3 border-b border-white/5"
+                >
+                  Register
+                </Link>
+              </li>
+            </>
+          )}
 
           <li className="mt-auto">
             <button className="btn btn-primary w-full">Get Tickets</button>
