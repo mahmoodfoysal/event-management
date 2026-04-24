@@ -5,7 +5,7 @@ const NavBar = () => {
   const routes = [
     { name: "Home", path: "/" },
     { name: "Items", path: "/items" },
-    { name: "Speakers", path: "/speakers" },
+    { name: "Projects", path: "/projects" },
     { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];

@@ -1,8 +1,8 @@
-"use client"; // Required if you are using Next.js App Router
-import React, { useState, useEffect } from "react"; // Added missing imports
+"use client"; 
+import React, { useState, useEffect } from "react"; 
 
 const Testimonial = () => {
-  // Now these hooks will work correctly
+
   const [active, setActive] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 

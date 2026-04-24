@@ -144,3 +144,126 @@ export const events = [
     price: 10.0,
   },
 ];
+
+export const projects = [
+  {
+    id: 1,
+    name: "TechSummit 2026",
+    type: "Conference Management",
+    category: "Corporate",
+    img: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=800",
+    location: "San Francisco, CA",
+    date: "2026-01-12",
+    description: "A premier gathering of tech innovators focusing on AI and scalable architecture."
+  },
+  {
+    id: 2,
+    name: "Global Charity Gala",
+    type: "Fundraising & Logistics",
+    category: "Social",
+    img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=800",
+    location: "London, UK",
+    date: "2025-12-05",
+    description: "An elegant evening dedicated to raising funds for global education initiatives."
+  },
+  {
+    id: 3,
+    name: "Neo-Art Exhibition",
+    type: "Curation & Gallery",
+    category: "Art",
+    img: "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&q=80&w=800",
+    location: "Berlin, Germany",
+    date: "2026-02-20",
+    description: "Exploring the intersection of digital media and traditional canvas art."
+  },
+  {
+    id: 4,
+    name: "Innovate Expo",
+    type: "Trade Show Planning",
+    category: "Corporate",
+    img: "https://images.unsplash.com/photo-1540575861501-7c0f110f6f97?auto=format&fit=crop&q=80&w=800",
+    location: "Tokyo, Japan",
+    date: "2025-11-18",
+    description: "A massive trade show showcasing the latest in robotics and electronics."
+  },
+  {
+    id: 5,
+    name: "Luxury Wedding Expo",
+    type: "Event Coordination",
+    category: "Social",
+    img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=800",
+    location: "Paris, France",
+    date: "2026-03-05",
+    description: "A showcase of high-end wedding vendors and luxury event planning."
+  },
+  {
+    id: 6,
+    name: "Green Future Forum",
+    type: "Eco-Strategic Planning",
+    category: "Corporate",
+    img: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80&w=800",
+    location: "Vancouver, Canada",
+    date: "2026-01-25",
+    description: "A forum focused on sustainable urban development and green energy."
+  },
+  {
+    id: 7,
+    name: "Cyber Security Meet",
+    type: "Technical Seminar",
+    category: "Tech",
+    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
+    location: "Tel Aviv, Israel",
+    date: "2025-10-10",
+    description: "Deep-dive workshops into network security and ethical hacking practices."
+  },
+  {
+    id: 8,
+    name: "Music City Festival",
+    type: "Concert Production",
+    category: "Entertainment",
+    img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=800",
+    location: "Nashville, TN",
+    date: "2025-09-22",
+    description: "Three days of multi-genre live music performances across the city center."
+  },
+  {
+    id: 9,
+    name: "DevOps Workshop",
+    type: "IT Training Event",
+    category: "Tech",
+    img: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800",
+    location: "Bangalore, India",
+    date: "2026-03-15",
+    description: "Hands-on training for CI/CD pipelines and container orchestration."
+  },
+  {
+    id: 10,
+    name: "Health & Wellness Retreat",
+    type: "Wellness Planning",
+    category: "Social",
+    img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800",
+    location: "Bali, Indonesia",
+    date: "2026-04-01",
+    description: "A curated retreat focusing on mental health, yoga, and holistic nutrition."
+  },
+  {
+    id: 11,
+    name: "AI & Robotics Summit",
+    type: "Tech Conference",
+    category: "Tech",
+    img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800",
+    location: "Seoul, South Korea",
+    date: "2025-08-14",
+    description: "Exploring the next frontier of automation and machine learning models."
+  },
+  {
+    id: 12,
+    name: "Underground Beats",
+    type: "Live Music Event",
+    category: "Entertainment",
+    img: "https://images.unsplash.com/photo-1514525253361-bee8718a74a2?auto=format&fit=crop&q=80&w=800",
+    location: "Brooklyn, NY",
+    date: "2025-07-30",
+    description: "A showcase of underground electronic music and immersive light art."
+  }
+];
