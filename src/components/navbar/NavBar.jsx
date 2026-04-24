@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import { useAuth } from "@/context/AuthContext";
+
 const NavBar = () => {
+  const { user, logout } = useAuth();
   const routes = [
     { name: "Home", path: "/" },
     { name: "Items", path: "/items" },
@@ -38,6 +41,36 @@ const NavBar = () => {
                   </Link>
                 </li>
               ))}
+
+              {user ? (
+                <li onClick={logout}>
+                  <Link
+                    href="/"
+                    className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                  >
+                    Logout
+                  </Link>
+                </li>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      href="/login"
+                      className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/register"
+                      className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                    >
+                      Register
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
             <button className="btn btn-primary btn-sm ml-4 rounded-full px-6">
               Get Tickets
@@ -94,6 +127,24 @@ const NavBar = () => {
               </Link>
             </li>
           ))}
+
+          <li>
+            <Link
+              href="/login"
+              className="text-lg font-sans py-3 border-b border-white/5"
+            >
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link
+              href="/register"
+              className="text-lg font-sans py-3 border-b border-white/5"
+            >
+              Register
+            </Link>
+          </li>
+
           <li className="mt-auto">
             <button className="btn btn-primary w-full">Get Tickets</button>
           </li>
