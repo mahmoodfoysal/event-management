@@ -4,7 +4,7 @@ import React from "react";
 const NavBar = () => {
   const routes = [
     { name: "Home", path: "/" },
-    { name: "Events", path: "/events" },
+    { name: "Items", path: "/items" },
     { name: "Schedule", path: "/schedule" },
     { name: "Speakers", path: "/speakers" },
     { name: "Contact", path: "/contact" },
