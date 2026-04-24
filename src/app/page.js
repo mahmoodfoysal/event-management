@@ -1,3 +1,4 @@
+import Banner from "@/components/banner/Banner";
 import Events from "@/components/events/Events";
 import HeroSection from "@/components/homepage/HeroSection";
 import Services from "@/components/services/Services";
@@ -15,6 +16,7 @@ export default function Home() {
       <SignatureProjects></SignatureProjects>
       <Testimonial></Testimonial>
       <Subscription></Subscription>
+      <Banner></Banner>
     </>
   );
 }

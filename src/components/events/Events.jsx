@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { events } from "@/data/events";
 import Card from "../card/Card";
+import Link from "next/link";
 
 const Features = () => {
   const [eventList, setEventList] = useState(events);
@@ -51,7 +52,11 @@ const Features = () => {
               <Card key={index} event={item}></Card>
             ))}
           </div>
+                  <div className="text-center mt-12">
+          <Link href="/items"><button className="btn btn-ghost text-orange-500 font-bold text-[20px]">View More →</button></Link>
         </div>
+        </div>
+
       </section>
     </>
   );

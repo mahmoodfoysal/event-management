@@ -5,12 +5,12 @@ const NavBar = () => {
   const routes = [
     { name: "Home", path: "/" },
     { name: "Items", path: "/items" },
-    { name: "Schedule", path: "/schedule" },
     { name: "Speakers", path: "/speakers" },
+    { name: "About", path: "/about" },
     { name: "Contact", path: "/contact" },
   ];
   return (
-    <div className="drawer position: sticky z-[2] top-0">
+    <div className="drawer position: sticky z-[2000] top-0">
       <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content flex flex-col">
         {/* Navbar */}
