@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast"; // 1. Import toast components
 
 import {
   Eye,
@@ -25,15 +25,43 @@ const ProductList = () => {
 
   const [products, setProducts] = useState(events);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedProduct, setSelectedProduct] = useState(null); // Track drawer state
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const itemsPerPage = 9;
 
-  // --- Logic ---
+  // --- Updated Delete Logic with Toast ---
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure you want to delete this product?")) {
-      setProducts(products.filter((p) => p.id !== id));
-      setSelectedProduct(null); // Close drawer on success
-    }
+    // 2. Wrap the logic in a promise for better UX
+    const deletePromise = new Promise((resolve, reject) => {
+      if (window.confirm("Are you sure you want to delete this product?")) {
+        // Simulate a small delay for the "processing" feel
+        setTimeout(() => {
+          setProducts((prev) => prev.filter((p) => p.id !== id));
+          setSelectedProduct(null);
+          resolve();
+        }, 800);
+      } else {
+        reject("Cancelled");
+      }
+    });
+
+    // 3. Trigger the toast notification
+    toast.promise(
+      deletePromise,
+      {
+        loading: "Deleting item...",
+        success: "Item removed from inventory!",
+        error: "Deletion cancelled",
+      },
+      {
+        success: { duration: 3000 },
+        style: {
+          borderRadius: "16px",
+          background: "#1e293b",
+          color: "#fff",
+          fontWeight: "bold",
+        },
+      },
+    );
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -47,21 +75,23 @@ const ProductList = () => {
     }
   }, [user, loading, router]);
 
-  if (!user) return <p>Checking auth...</p>;
+  if (!user)
+    return <p className="text-center py-10 font-bold">Checking auth...</p>;
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
+      {/* 4. Add Toaster component */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       {/* --- DRAWER OVERLAY --- */}
       <div
         className={`fixed inset-0 z-50 transition-all duration-500 ${selectedProduct ? "visible" : "invisible"}`}
       >
-        {/* Backdrop */}
         <div
           className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500 ${selectedProduct ? "opacity-100" : "opacity-0"}`}
           onClick={() => setSelectedProduct(null)}
         />
 
-        {/* Drawer Panel */}
         <div
           className={`absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-500 ease-out p-8 flex flex-col ${selectedProduct ? "translate-x-0" : "translate-x-full"}`}
         >
@@ -126,7 +156,6 @@ const ProductList = () => {
                 </div>
               </div>
 
-              {/* Drawer Footer Actions */}
               <div className="pt-8 border-t border-slate-100 flex gap-3">
                 <button
                   onClick={() => handleDelete(selectedProduct.id)}

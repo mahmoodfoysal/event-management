@@ -1,14 +1,13 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast"; // 1. Import toast
 
 const AddProjectForm = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  const [showToast, setShowToast] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     shortDescription: "",
@@ -24,32 +23,45 @@ const AddProjectForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simulate API logic
-    const finalData = {
-      ...formData,
-      id: Date.now(), // Generate unique ID
-      category_id: 1, // Defaulting based on your JSON structure
-    };
+    // 2. Initialize a loading toast
+    const loadingToast = toast.loading("Processing your request...");
 
-    console.log("Success:", finalData);
+    try {
+      // Simulate API logic delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Trigger Success Toast
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000);
+      const finalData = {
+        ...formData,
+        id: Date.now(),
+        category_id: 1,
+      };
 
-    // Reset Form
-    setFormData({
-      title: "",
-      shortDescription: "",
-      fullDescription: "",
-      price: "",
-      date: "",
-      category: "Tech",
-      imageUrl: "",
-    });
+      console.log("Success:", finalData);
+
+      // 3. Update the toast to Success
+      toast.success("Item Added Successfully!", {
+        id: loadingToast,
+      });
+
+      // Reset Form
+      setFormData({
+        title: "",
+        shortDescription: "",
+        fullDescription: "",
+        price: "",
+        date: "",
+        category: "",
+        imageUrl: "",
+      });
+    } catch (error) {
+      // 4. Update the toast to Error if something goes wrong
+      toast.error("Failed to add item. Please try again.", {
+        id: loadingToast,
+      });
+    }
   };
 
   useEffect(() => {
@@ -58,23 +70,13 @@ const AddProjectForm = () => {
     }
   }, [user, loading, router]);
 
-  if (!user) return <p>Checking auth...</p>;
+  if (!user)
+    return <p className="text-center py-10 font-bold">Checking auth...</p>;
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 flex justify-center items-center relative">
-      {/* --- SUCCESS TOAST --- */}
-      {showToast && (
-        <div className="fixed top-10 right-10 z-50 animate-bounce-subtle">
-          <div className="bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-3 border border-slate-700">
-            <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-xs font-black">
-              ✓
-            </div>
-            <p className="font-bold text-sm uppercase tracking-widest">
-              Item Added Successfully!
-            </p>
-          </div>
-        </div>
-      )}
+      {/* 5. Toaster Container with your requested position */}
+      <Toaster position="top-center" reverseOrder={false} />
 
       {/* --- FORM CONTAINER --- */}
       <div className="w-full max-w-4xl bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-white overflow-hidden">
@@ -171,7 +173,7 @@ const AddProjectForm = () => {
                 />
               </div>
 
-              {/* Date - Required */}
+              {/* Event Date - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Event Date *
@@ -186,12 +188,13 @@ const AddProjectForm = () => {
                 />
               </div>
 
-              {/* Priority/Category - Required */}
+              {/* Category - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Category *
                 </label>
                 <select
+                  required
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
@@ -200,8 +203,8 @@ const AddProjectForm = () => {
                   <option value="">Select</option>
                   <option value="Tech">Tech</option>
                   <option value="Business">Business</option>
-                  <option value="Design">Art</option>
-                  <option value="Marketing">Exhibition</option>
+                  <option value="Art">Art</option>
+                  <option value="Exhibition">Exhibition</option>
                 </select>
               </div>
             </div>
@@ -218,22 +221,6 @@ const AddProjectForm = () => {
           </form>
         </div>
       </div>
-
-      <style jsx>{`
-        .animate-bounce-subtle {
-          animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes slideIn {
-          from {
-            transform: translateX(100px);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 };

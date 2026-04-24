@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import { useState } from "react";
 import { auth } from "@/lib/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -9,32 +10,53 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast"; // 1. Added modern toast
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // 2. Track validation errors
+  const [errors, setErrors] = useState({
+    fullName: false,
+    email: false,
+    password: false,
+  });
   const router = useRouter();
 
   const provider = new GoogleAuthProvider();
 
   const handleGoogleLogin = async () => {
+    const loginToast = toast.loading("Connecting to Google...");
     try {
       const result = await signInWithPopup(auth, provider);
-
-      const user = result.user;
-
-      alert(`Logged in as ${user.displayName}`);
-
+      toast.success(`Welcome, ${result.user.displayName}!`, { id: loginToast });
       router.push("/");
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message, { id: loginToast });
     }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // 3. Strict Validation Logic
+    const newErrors = {
+      fullName: !fullName.trim(),
+      email: !email.trim(),
+      password: !password.trim(),
+    };
+
+    setErrors(newErrors);
+
+    if (newErrors.fullName || newErrors.email || newErrors.password) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    const regToast = toast.loading("Creating your account...");
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -42,28 +64,30 @@ const Register = () => {
         email,
         password,
       );
-
       const user = userCredential.user;
 
       await updateProfile(user, {
         displayName: fullName,
         photoURL: "",
       });
-      await user.reload();
-      alert(`Welcome, ${user.displayName}! Your account has been created.`);
 
+      await user.reload();
+
+      toast.success(`Welcome aboard, ${fullName}!`, { id: regToast });
       router.push("/");
     } catch (err) {
-      alert(err.message);
+      toast.error(err.message, { id: regToast });
     }
   };
 
   return (
     <>
+      {/* 4. Toaster Container */}
+      <Toaster position="center" reverseOrder={false} />
+
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
-        {/* --- LEFT SIDE: BRANDING/VISUAL (Hidden on mobile or stacked) --- */}
+        {/* --- LEFT SIDE: BRANDING --- */}
         <div className="w-full lg:w-1/2 bg-slate-900 p-12 md:p-20 text-white flex flex-col justify-between relative overflow-hidden min-h-[40vh] lg:min-h-screen">
-          {/* Abstract background decorative elements */}
           <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[120px]"></div>
           <div className="absolute bottom-[-5%] right-[-5%] w-[300px] h-[300px] bg-orange-500/5 rounded-full blur-[80px]"></div>
 
@@ -80,7 +104,7 @@ const Register = () => {
             </h1>
             <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md">
               The worlds most intuitive platform for event management and
-              creative production. Join 2,000+ professionals today.
+              creative production.
             </p>
           </div>
 
@@ -114,9 +138,7 @@ const Register = () => {
                   href="/login"
                   className="text-orange-500 font-bold hover:underline"
                 >
-                  <span className="text-orange-500 font-bold cursor-pointer hover:underline">
-                    Sign In
-                  </span>
+                  Sign In
                 </Link>
               </p>
             </div>
@@ -124,44 +146,64 @@ const Register = () => {
             <form onSubmit={handleRegister} className="space-y-6">
               {/* Name Field */}
               <div className="space-y-2">
-                <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
-                  Full Name
+                <label
+                  className={`text-[11px] font-black uppercase tracking-[0.2em] ml-1 transition-colors ${errors.fullName ? "text-red-500" : "text-slate-400"}`}
+                >
+                  Full Name {errors.fullName && "*"}
                 </label>
                 <input
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => {
+                    setFullName(e.target.value);
+                    if (errors.fullName)
+                      setErrors({ ...errors, fullName: false });
+                  }}
                   type="text"
                   placeholder="John Doe"
-                  className="w-full h-16 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900 placeholder:text-slate-300 shadow-sm"
+                  className={`w-full h-16 rounded-2xl px-6 focus:outline-none transition-all font-medium border shadow-sm 
+                    ${errors.fullName ? "bg-red-50 border-red-200 focus:border-red-500 text-red-900" : "bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"}`}
                 />
               </div>
 
               {/* Email Field */}
               <div className="space-y-2">
-                <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
-                  Email Address
+                <label
+                  className={`text-[11px] font-black uppercase tracking-[0.2em] ml-1 transition-colors ${errors.email ? "text-red-500" : "text-slate-400"}`}
+                >
+                  Email Address {errors.email && "*"}
                 </label>
                 <input
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (errors.email) setErrors({ ...errors, email: false });
+                  }}
                   type="email"
                   placeholder="john@user.com"
-                  className="w-full h-16 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900 placeholder:text-slate-300 shadow-sm"
+                  className={`w-full h-16 rounded-2xl px-6 focus:outline-none transition-all font-medium border shadow-sm 
+                    ${errors.email ? "bg-red-50 border-red-200 focus:border-red-500 text-red-900" : "bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"}`}
                 />
               </div>
 
               {/* Password Field */}
               <div className="space-y-2">
-                <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
-                  Password
+                <label
+                  className={`text-[11px] font-black uppercase tracking-[0.2em] ml-1 transition-colors ${errors.password ? "text-red-500" : "text-slate-400"}`}
+                >
+                  Password {errors.password && "*"}
                 </label>
                 <div className="relative">
                   <input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (errors.password)
+                        setErrors({ ...errors, password: false });
+                    }}
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    className="w-full h-16 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900 placeholder:text-slate-300 shadow-sm"
+                    className={`w-full h-16 rounded-2xl px-6 focus:outline-none transition-all font-medium border shadow-sm 
+                      ${errors.password ? "bg-red-50 border-red-200 focus:border-red-500 text-red-900" : "bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"}`}
                   />
                   <button
-                    type="submit"
+                    type="button" // Important: type button prevents form submission
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 text-[10px] font-black uppercase tracking-widest"
                   >
@@ -170,14 +212,15 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Submit Button */}
               <div className="pt-6">
-                <button className="cursor-pointer w-full h-12 bg-orange-500 text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-xl shadow-orange-100 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.98] transition-all">
+                <button
+                  type="submit"
+                  className="w-full h-14 bg-orange-500 text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-xl shadow-orange-100 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.98] transition-all"
+                >
                   Create Account
                 </button>
               </div>
 
-              {/* Social Divider */}
               <div className="relative py-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-slate-100"></div>
@@ -187,21 +230,18 @@ const Register = () => {
                 </div>
               </div>
 
-              {/* Social Buttons */}
-              <div className="grid grid-cols-1 gap-4">
-                <button
-                  onClick={handleGoogleLogin}
-                  type="button"
-                  className="cursor-pointer h-12 border border-slate-100 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-50 transition-all text-xs font-bold text-slate-700 shadow-sm"
-                >
-                  <img
-                    src="https://www.svgrepo.com/show/475656/google-color.svg"
-                    className="w-5 h-5"
-                    alt="google"
-                  />
-                  Google
-                </button>
-              </div>
+              <button
+                onClick={handleGoogleLogin}
+                type="button"
+                className="w-full h-14 border border-slate-100 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-50 transition-all text-xs font-bold text-slate-700 shadow-sm"
+              >
+                <img
+                  src="https://www.svgrepo.com/show/475656/google-color.svg"
+                  className="w-5 h-5"
+                  alt="google"
+                />
+                Continue with Google
+              </button>
             </form>
           </div>
         </div>

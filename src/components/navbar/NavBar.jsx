@@ -90,11 +90,6 @@ const NavBar = () => {
                       {user?.displayName || "Foysal Mahmood"}
                     </p>
                   </div>
-                  {/* <li>
-                    <Link href="/dashboard" className="py-3 flex gap-3">
-                      <LayoutDashboard className="w-4 h-4" /> Dashboard
-                    </Link>
-                  </li> */}
                   <li>
                     <Link href="/items/add" className="py-3 flex gap-3">
                       <ClipboardPlus className="w-4 h-4" /> Add Items
@@ -117,22 +112,25 @@ const NavBar = () => {
                 </ul>
               </div>
             ) : (
-              <div className="hidden lg:flex gap-2">
-                <Link href="/login" className="btn btn-ghost btn-sm font-bold">
-                  Login
-                </Link>
+              <div className="hidden lg:flex items-center">
+                <ul className="menu menu-horizontal px-1">
+                  <li>
+                    <Link
+                      href="/login"
+                      className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                </ul>
                 <Link
                   href="/register"
-                  className="btn btn-primary btn-sm rounded-full px-6"
+                  className="btn btn-primary btn-sm rounded-full px-6 ml-2"
                 >
                   Register
                 </Link>
               </div>
             )}
-
-            {/* <button className="btn btn-primary btn-sm ml-4 rounded-full px-6">
-              Get Tickets
-            </button> */}
 
             {/* Hamburger (Mobile Only) */}
             <label
@@ -196,24 +194,14 @@ const NavBar = () => {
             ))}
 
             {user ? (
-              <>
-                <li>
-                  <Link
-                    href="/dashboard"
-                    className="text-lg font-bold py-4 border-b border-base-200"
-                  >
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    onClick={logout}
-                    className="text-lg font-bold py-4 text-red-500"
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
+              <li>
+                <button
+                  onClick={logout}
+                  className="text-lg font-bold py-4 text-red-500"
+                >
+                  Logout
+                </button>
+              </li>
             ) : (
               <>
                 <li>
