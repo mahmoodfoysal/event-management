@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import React from "react";
 
@@ -35,20 +35,21 @@ const Card = ({ event }) => {
         </h3>
 
         <p className="text-slate-500 text-[11px] line-clamp-2 leading-relaxed mb-4">
-          Experience the most anticipated {event.category?.toLowerCase() || 'event'} of the year.
+          Experience the most anticipated{" "}
+          {event.category?.toLowerCase() || "event"} of the year.
         </p>
 
         {/* Action Section - Fixed for 4 items in a row */}
         <div className="mt-auto pt-4 flex flex-col gap-2 border-t border-slate-100">
-          <button className="btn btn-primary btn-sm rounded-xl w-full font-bold text-white shadow-sm capitalize">
-            Book Now
-          </button>
-          
           <Link href={`/items/${event.id}`} className="w-full">
             <button className="btn btn-ghost btn-sm rounded-xl w-full font-bold text-slate-500 hover:text-orange-600 capitalize">
               View Details
             </button>
           </Link>
+
+          <button className="btn btn-primary btn-sm rounded-xl w-full font-bold text-white shadow-sm capitalize">
+            Book Now
+          </button>
         </div>
       </div>
     </div>

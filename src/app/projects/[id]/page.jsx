@@ -1,179 +1,188 @@
+"use client";
+import { useParams } from "next/navigation";
 import React from "react";
+import { projects } from "@/data/events"; // Ensure this matches your export
+import Card from "@/components/card/Card";
+import Link from "next/link";
 
-const page = () => {
+const Page = () => {
+  const params = useParams();
+  const itemId = params?.id;
+
+  // Find project by ID
+  const Detail = projects?.find((event) => event.id === parseInt(itemId));
+
+  // Filter related events by Category (using name or a category ID)
+  const reletedEvents = projects
+    ?.filter(
+      (event) => event.category === Detail?.category && event.id !== Detail?.id,
+    )
+    .slice(0, 3); // Limit to 3 items
+
+  if (!Detail) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        Project not found
+      </div>
+    );
+  }
+
   return (
-    <>
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        {/* Main Container */}
-        <div className="w-full max-w-[1100px] bg-white rounded-[3rem] shadow-2xl shadow-slate-200/60 overflow-hidden flex flex-col lg:flex-row border border-white">
-          {/* --- LEFT SIDE: BRANDING/VISUAL --- */}
-          <div className="w-full lg:w-5/12 bg-slate-900 p-12 text-white flex flex-col justify-between relative overflow-hidden">
-            {/* Abstract background circles */}
-            <div className="absolute top-[-10%] left-[-10%] w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-[-10%] right-[-10%] w-48 h-48 bg-orange-500/5 rounded-full blur-2xl"></div>
+    <div className="min-h-screen bg-slate-50 py-12 px-4 lg:px-12">
+      <div className="max-w-7xl mx-auto space-y-16">
+        <Link href="/projects">
+          <button className="btn btn-ghost text-orange-500 font-bold">
+            ← Back to Projects
+          </button>
+        </Link>
 
-            <div className="relative z-10">
-              <h2 className="text-3xl font-black tracking-tighter italic text-orange-500">
-                EventNexus
-              </h2>
-            </div>
-
-            <div className="relative z-10 space-y-6">
-              <h1 className="text-4xl md:text-5xl font-black leading-[1.1]">
-                Start your <br />
-                <span className="text-orange-500">journey</span> with us.
-              </h1>
-              <p className="text-slate-400 text-sm font-medium leading-relaxed max-w-xs">
-                Join our community of world-class event planners and creative
-                directors. Manage your successful projects with ease.
-              </p>
-            </div>
-
-            <div className="relative z-10 pt-8 border-t border-slate-800">
-              <div className="flex -space-x-3 mb-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full border-2 border-slate-900 bg-slate-800 flex items-center justify-center text-[10px] font-bold"
-                  >
-                    U{i}
-                  </div>
-                ))}
-                <div className="w-10 h-10 rounded-full border-2 border-slate-900 bg-orange-500 flex items-center justify-center text-[10px] font-black">
-                  +2k
-                </div>
-              </div>
-              <p className="text-[11px] uppercase tracking-widest font-bold text-slate-500">
-                Trusted by 2,000+ Professionals
-              </p>
-            </div>
+        {/* --- 1. HERO SECTION --- */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-slate-200">
+          <div className="rounded-[2rem] overflow-hidden h-[400px] md:h-[500px]">
+            <img
+              src={Detail?.img} // FIXED: matched to 'img'
+              className="w-full h-full object-cover"
+              alt={Detail?.name}
+            />
           </div>
 
-          {/* --- RIGHT SIDE: FORM --- */}
-          <div className="w-full lg:w-7/12 p-8 md:p-16 bg-white">
-            <div className="max-w-md mx-auto space-y-10">
-              <div className="space-y-2">
-                <h3 className="text-3xl font-black text-slate-900">
-                  Create Account
-                </h3>
-                <p className="text-slate-400 font-medium text-sm">
-                  Already have an account?{" "}
-                  <span className="text-orange-500 cursor-pointer hover:underline">
-                    Login
-                  </span>
+          <div className="flex flex-col justify-center space-y-6">
+            <div className="flex gap-2">
+              <span className="badge badge-primary rounded-lg font-bold p-3">
+                {Detail?.category}
+              </span>
+              <span className="badge badge-outline rounded-lg font-bold p-3">
+                {Detail?.type}
+              </span>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+              {Detail?.name} {/* FIXED: matched to 'name' */}
+            </h1>
+
+            <p className="text-slate-500 text-lg leading-relaxed">
+              {Detail?.long_description}
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 py-6 border-y border-slate-100">
+              <div>
+                <p className="text-[10px] uppercase font-bold text-slate-400">
+                  Date
+                </p>
+                <p className="font-bold text-slate-900">{Detail?.date}</p>
+              </div>
+              <div>
+                <p className="text-[10px] uppercase font-bold text-slate-400">
+                  Location
+                </p>
+                <p className="font-bold text-slate-900">{Detail?.location}</p>
+              </div>
+              {/* Optional: Add price to your array later, currently using fallback */}
+              <div>
+                <p className="text-[10px] uppercase font-bold text-slate-400">
+                  Status
+                </p>
+                <p className="font-bold text-slate-900 text-green-600">
+                  Completed
                 </p>
               </div>
-
-              <form className="space-y-5">
-                {/* Name Field */}
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 ml-1">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="e.g. Foysal Mahmood"
-                      className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900"
-                    />
-                  </div>
-                </div>
-
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 ml-1">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="hello@domain.com"
-                    className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900"
-                  />
-                </div>
-
-                {/* Password Field */}
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 ml-1">
-                    Password
-                  </label>
-                  <div className="relative">
-                    <input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••"
-                      className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 focus:bg-white transition-all font-medium text-slate-900"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 text-xs font-bold uppercase tracking-tighter"
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Terms Checkbox */}
-                <div className="flex items-center gap-3 pt-2">
-                  <input
-                    type="checkbox"
-                    className="checkbox checkbox-sm rounded-lg border-slate-200 [--chkbg:theme(colors.orange.500)] [--chkfg:white]"
-                    id="terms"
-                  />
-                  <label
-                    htmlFor="terms"
-                    className="text-xs text-slate-500 font-medium cursor-pointer select-none"
-                  >
-                    I agree to the{" "}
-                    <span className="text-slate-900 underline">
-                      Terms of Service
-                    </span>{" "}
-                    and{" "}
-                    <span className="text-slate-900 underline">
-                      Privacy Policy
-                    </span>
-                    .
-                  </label>
-                </div>
-
-                {/* Submit Button */}
-                <div className="pt-4">
-                  <button className="w-full h-14 bg-orange-500 text-white rounded-2xl font-black text-sm uppercase tracking-widest shadow-lg shadow-orange-100 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.98] transition-all">
-                    Create My Account
-                  </button>
-                </div>
-
-                {/* Social Signup Divider */}
-                <div className="relative py-4">
-                  <div className="absolute inset-0 flex items-center">
-                    <div className="w-full border-t border-slate-100"></div>
-                  </div>
-                  <div className="relative flex justify-center text-[10px] uppercase font-black tracking-widest text-slate-300">
-                    <span className="bg-white px-4">Or sign up with</span>
-                  </div>
-                </div>
-
-                {/* Social Buttons */}
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    type="button"
-                    className="h-12 border border-slate-100 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all text-xs font-bold text-slate-600"
-                  >
-                    <span className="text-blue-600 font-black">G</span> Google
-                  </button>
-                  <button
-                    type="button"
-                    className="h-12 border border-slate-100 rounded-xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all text-xs font-bold text-slate-600"
-                  >
-                    <span className="text-blue-800 font-black">f</span> Facebook
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* --- 2. REVIEWS (Placeholder) --- */}
+        {/* ... keep your existing review section ... */}
+        <section className="space-y-8">
+          <h2 className="text-3xl font-black text-slate-900">
+            Client <span className="text-orange-500 ">Reviews</span>
+          </h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left Side: Rating Input */}
+            <div className="lg:col-span-1 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 h-fit">
+              <h4 className="text-lg font-bold text-slate-900 mb-6">
+                Leave a Rating
+              </h4>
+              <div className="space-y-6">
+                <div className="rating rating-lg gap-2">
+                  <input
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                  />
+                  <input
+                    type="radio"
+                    name="rating-2"
+                    className="mask mask-star-2 bg-orange-400"
+                  />
+                </div>
+                <textarea
+                  className="textarea textarea-bordered w-full bg-slate-50 border-slate-200 rounded-2xl h-32"
+                  placeholder="Share your thoughts about this event..."
+                ></textarea>
+                <button className="btn btn-primary w-full rounded-xl text-white">
+                  Post Review
+                </button>
+              </div>
+            </div>
+
+            {/* Right Side: Comments Display */}
+            <div className="lg:col-span-2 space-y-4">
+              {[1, 2].map((review) => (
+                <div
+                  key={review}
+                  className="bg-white p-6 rounded-[2rem] border border-slate-100 flex gap-4"
+                >
+                  <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0"></div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <p className="font-bold text-slate-900">User Name</p>
+                      <div className="rating rating-xs">
+                        <input
+                          type="radio"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                        <input
+                          type="radio"
+                          className="mask mask-star-2 bg-orange-400"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-slate-500 text-sm">
+                      Amazing organization! The sound and lighting were
+                      top-notch. Highly recommend attending the next one.
+                    </p>
+                    <p className="text-[10px] font-bold text-slate-300 uppercase">
+                      2 Days Ago
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
-    </>
+    </div>
   );
 };
 
-export default page;
+export default Page;

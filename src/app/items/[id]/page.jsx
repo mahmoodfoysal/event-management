@@ -18,11 +18,13 @@ const Page = () => {
   return (
     <>
       <div className="min-h-screen bg-slate-50 py-12 px-4 lg:px-12">
-
         <div className="max-w-7xl mx-auto space-y-16">
-                <Link href="/items">  <button className="btn btn-ghost text-orange-500 font-bold">
-        ← Back to All Items
-        </button></Link>
+          <Link href="/items">
+            {" "}
+            <button className="btn btn-ghost text-orange-500 font-bold">
+              ← Back to All Items
+            </button>
+          </Link>
           {/* --- 1. HERO SECTION: IMAGE & KEY DETAILS --- */}
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-slate-200">
             <div className="rounded-[2rem] overflow-hidden h-[400px] md:h-[500px]">
@@ -76,7 +78,7 @@ const Page = () => {
                 {Detail?.title}
               </h1>
               <p className="text-slate-500 text-lg leading-relaxed">
-                {Detail?.description}
+                {Detail?.long_description}
               </p>
 
               <div className="grid grid-cols-2 gap-4 py-6 border-y border-slate-100">
@@ -105,104 +107,6 @@ const Page = () => {
               <button className="btn btn-primary btn-lg rounded-2xl text-white font-bold w-full md:w-fit px-12">
                 Book Your Seat Now
               </button>
-            </div>
-          </section>
-
-          {/* --- 2. RATING & COMMENTS SECTION --- */}
-          <section className="space-y-8">
-            <h2 className="text-3xl font-black text-slate-900">
-              Client <span className="text-orange-500 ">Reviews</span>
-            </h2>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Left Side: Rating Input */}
-              <div className="lg:col-span-1 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 h-fit">
-                <h4 className="text-lg font-bold text-slate-900 mb-6">
-                  Leave a Rating
-                </h4>
-                <div className="space-y-6">
-                  <div className="rating rating-lg gap-2">
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-2"
-                      className="mask mask-star-2 bg-orange-400"
-                    />
-                  </div>
-                  <textarea
-                    className="textarea textarea-bordered w-full bg-slate-50 border-slate-200 rounded-2xl h-32"
-                    placeholder="Share your thoughts about this event..."
-                  ></textarea>
-                  <button className="btn btn-primary w-full rounded-xl text-white">
-                    Post Review
-                  </button>
-                </div>
-              </div>
-
-              {/* Right Side: Comments Display */}
-              <div className="lg:col-span-2 space-y-4">
-                {[1, 2].map((review) => (
-                  <div
-                    key={review}
-                    className="bg-white p-6 rounded-[2rem] border border-slate-100 flex gap-4"
-                  >
-                    <div className="w-12 h-12 rounded-full bg-slate-200 flex-shrink-0"></div>
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3">
-                        <p className="font-bold text-slate-900">
-                          Foysal Mahmood
-                        </p>
-                        <div className="rating rating-xs">
-                          <input
-                            type="radio"
-                            className="mask mask-star-2 bg-orange-400"
-                            checked
-                            disabled
-                          />
-                          <input
-                            type="radio"
-                            className="mask mask-star-2 bg-orange-400"
-                            checked
-                            disabled
-                          />
-                          <input
-                            type="radio"
-                            className="mask mask-star-2 bg-orange-400"
-                            checked
-                            disabled
-                          />
-                        </div>
-                      </div>
-                      <p className="text-slate-500 text-sm">
-                        Amazing organization! The sound and lighting were
-                        top-notch. Highly recommend attending the next one.
-                      </p>
-                      <p className="text-[10px] font-bold text-slate-300 uppercase">
-                        2 Days Ago
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </section>
 

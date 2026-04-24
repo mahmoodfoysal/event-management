@@ -32,9 +32,23 @@ const NavBar = () => {
           <div className="flex-1">
             <Link
               href="/"
-              className="font-display text-2xl font-extrabold tracking-tighter hover:opacity-80 transition-opacity"
+              className="flex items-center gap-3 group transition-all"
             >
-              Odyssey<span className="text-primary"> Event</span>
+              {/* --- Logo as Avatar --- */}
+              <div className="avatar">
+                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 group-hover:scale-105 transition-transform">
+                  <img
+                    src="https://plus.unsplash.com/premium_vector-1683141234968-b4f861c0546a?q=80&w=966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Replace with your actual logo path (e.g., /logo.png or a URL)
+                    alt="Odyssey Logo"
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+
+              {/* --- Brand Name --- */}
+              <span className="font-display text-2xl font-extrabold tracking-tighter text-slate-900 group-hover:opacity-80">
+                Odyssey<span className="text-primary"> Event</span>
+              </span>
             </Link>
           </div>
 
