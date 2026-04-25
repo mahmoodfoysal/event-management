@@ -4,6 +4,7 @@ import React from "react";
 import { projects } from "@/data/events"; // Ensure this matches your export
 import Card from "@/components/card/Card";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 const Page = () => {
   const params = useParams();
@@ -26,6 +27,20 @@ const Page = () => {
       </div>
     );
   }
+
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+  const handleReview = () => {
+    toast.success(` ReviewComming Soon`, {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 lg:px-12">
@@ -69,7 +84,14 @@ const Page = () => {
                 <p className="text-[10px] uppercase font-bold text-slate-400">
                   Date
                 </p>
-                <p className="font-bold text-slate-900">{Detail?.date}</p>
+                <p className="font-bold text-slate-900">
+                  {" "}
+                  {new Date(Detail.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
               </div>
               <div>
                 <p className="text-[10px] uppercase font-bold text-slate-400">
@@ -135,7 +157,10 @@ const Page = () => {
                   className="textarea textarea-bordered w-full bg-slate-50 border-slate-200 rounded-2xl h-32"
                   placeholder="Share your thoughts about this event..."
                 ></textarea>
-                <button className="btn btn-primary w-full rounded-xl text-white">
+                <button
+                  onClick={handleReview}
+                  className="btn btn-primary w-full rounded-xl text-white"
+                >
                   Post Review
                 </button>
               </div>

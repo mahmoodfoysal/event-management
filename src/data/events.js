@@ -216,7 +216,7 @@ export const projects = [
     name: "Innovate Expo",
     type: "Trade Show Planning",
     category: "Corporate",
-    img: "https://images.unsplash.com/photo-1540575861501-7c0f110f6f97?auto=format&fit=crop&q=80&w=800",
+    img: "https://plus.unsplash.com/premium_photo-1682095147192-4d79c98ec421?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Tokyo, Japan",
     date: "2025-11-18",
     description:
@@ -268,7 +268,7 @@ export const projects = [
     name: "Music City Festival",
     type: "Concert Production",
     category: "Entertainment",
-    img: "https://images.unsplash.com/photo-1459749411177-042180ce673c?auto=format&fit=crop&q=80&w=800",
+    img: "https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Nashville, TN",
     date: "2025-09-22",
     description:
@@ -320,7 +320,7 @@ export const projects = [
     name: "Underground Beats",
     type: "Live Music Event",
     category: "Entertainment",
-    img: "https://images.unsplash.com/photo-1514525253361-bee8718a74a2?auto=format&fit=crop&q=80&w=800",
+    img: "https://plus.unsplash.com/premium_photo-1681830630610-9f26c9729b75?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     location: "Brooklyn, NY",
     date: "2025-07-30",
     description:

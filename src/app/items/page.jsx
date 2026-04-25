@@ -10,7 +10,7 @@ const Page = () => {
   const [price, setPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const ITEMS_PER_PAGE = 8; // Fits 4-column layout better
+  const ITEMS_PER_PAGE = 9; // Fits 4-column layout better
 
   const maxPrice = Math.max(...events.map((e) => e.price), 0);
 
@@ -89,7 +89,6 @@ const Page = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* ================= SIDEBAR (FIXED WIDE DESIGN) ================= */}
           <aside className="w-full lg:min-w-[340px] lg:w-[340px] space-y-10 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 h-fit lg:sticky lg:top-24">
             {/* Search Section */}
             <div className="form-control w-full">
@@ -118,7 +117,10 @@ const Page = () => {
               <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
                 By Category
               </label>
-              <div className="flex flex-col gap-3">
+              <div
+                className="flex flex-col gap-3 max-h-[300px] overflow-y-auto pr-2 
+    scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
+              >
                 {categories?.map((cat, index) => (
                   <label
                     key={index}
@@ -143,7 +145,10 @@ const Page = () => {
               <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
                 By Location
               </label>
-              <div className="flex flex-col gap-3">
+              <div
+                className="flex flex-col gap-3 max-h-[300px] overflow-y-auto pr-2 
+    scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent"
+              >
                 {" "}
                 {/* Changed from flex-wrap gap-2 to flex-col gap-3 */}
                 {locations?.map((loc, index) => (

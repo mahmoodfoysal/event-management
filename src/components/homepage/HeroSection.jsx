@@ -1,8 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { ArrowRight, Sparkles, Play } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const HeroSection = () => {
   const toastStyle = {

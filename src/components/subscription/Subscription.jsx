@@ -11,11 +11,25 @@ import {
   Zap,
   Globe,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
-const PartnershipSection = () => {
+const toastStyle = {
+  borderRadius: "16px",
+  background: "#1e293b",
+  color: "#fff",
+  fontWeight: "bold",
+};
+
+const Subscription = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
+    toast.success(`Submission comming soon`, {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
   };
+
   return (
     <section className="py-20 px-6 bg-white min-h-screen flex items-center justify-center">
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-0 border border-slate-200 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200/50">
@@ -98,6 +112,7 @@ const PartnershipSection = () => {
                   <User className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-orange-500 transition-colors" />
                   <input
                     type="text"
+                    required
                     placeholder="Full Name"
                     className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-all"
                   />
@@ -113,6 +128,7 @@ const PartnershipSection = () => {
                   <Mail className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-orange-500 transition-colors" />
                   <input
                     type="email"
+                    required
                     placeholder="email@company.com"
                     className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-all"
                   />
@@ -128,6 +144,7 @@ const PartnershipSection = () => {
                   <Phone className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-orange-500 transition-colors" />
                   <input
                     type="tel"
+                    required
                     placeholder="+1 . . . "
                     className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-all"
                   />
@@ -141,8 +158,11 @@ const PartnershipSection = () => {
                 </label>
                 <div className="relative">
                   <Calendar className="absolute left-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-orange-500 transition-colors" />
-                  <select className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white appearance-none transition-all">
-                    <option>Select</option>
+                  <select
+                    required
+                    className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white appearance-none transition-all"
+                  >
+                    <option value="">Select</option>
                     <option>Strategic Partnership</option>
                     <option>Tech Integration</option>
                     <option>Venue Management</option>
@@ -160,15 +180,19 @@ const PartnershipSection = () => {
               <div className="relative">
                 <MessageSquare className="absolute left-5 top-6 w-4 h-4 text-slate-300 group-focus-within:text-orange-500 transition-colors" />
                 <textarea
+                  required
                   placeholder="Describe your vision and how we fit in..."
                   className="w-full min-h-[120px] bg-slate-50 border-b-2 border-slate-100 p-6 pl-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-all resize-none"
                 ></textarea>
               </div>
             </div>
 
-            <button className="cursor-pointer w-full h-20 bg-slate-900 text-white flex items-center justify-between px-10 group hover:bg-orange-500 transition-all duration-500 rounded-2xl overflow-hidden shadow-xl shadow-slate-200">
+            <button
+              type="submit"
+              className="cursor-pointer w-full h-20 bg-slate-900 text-white flex items-center justify-between px-10 group hover:bg-orange-500 transition-all duration-500 rounded-2xl overflow-hidden shadow-xl shadow-slate-200"
+            >
               <span className="text-xs font-black uppercase tracking-[0.4em]">
-                Initialize Connection
+                Submit
               </span>
               <div className="flex items-center gap-2">
                 <span className="h-px w-8 bg-white/20 group-hover:w-12 transition-all"></span>
@@ -182,4 +206,4 @@ const PartnershipSection = () => {
   );
 };
 
-export default PartnershipSection;
+export default Subscription;
