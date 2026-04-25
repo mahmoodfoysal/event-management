@@ -38,11 +38,8 @@ const Login = () => {
 
     try {
       const result = await signInWithPopup(auth, provider);
-
-      // FIX: Dismiss loading first, then show fresh success toast
       toast.dismiss(loginToastId);
       toast.success(`Welcome, ${result.user.displayName}!`, {
-        duration: 3000,
         style: toastStyle,
         position: "top-center",
       });

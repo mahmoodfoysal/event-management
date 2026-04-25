@@ -46,7 +46,6 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       toast.dismiss(loginToastId);
       toast.success(`Welcome, ${result.user.displayName}!`, {
-        duration: 3000,
         style: toastStyle,
         position: "top-center",
       });
