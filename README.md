@@ -16,6 +16,7 @@ Odyssey Event Management
 - Firebase authentication
 - React Hot Toast
 - Material Icon
+- Local data
 
 ## Protected Page
 
