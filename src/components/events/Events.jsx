@@ -6,10 +6,9 @@ import Link from "next/link";
 
 const Features = () => {
   const [eventList, setEventList] = useState(events);
-  console.log("eventList", eventList);
-    const [randomEvent, setRandomEvent] = useState([]);
+  const [randomEvent, setRandomEvent] = useState([]);
 
-    useEffect(() => {
+  useEffect(() => {
     const getRandomItems = (arr, count) => {
       const result = [];
       const usedIndices = new Set();
@@ -24,7 +23,6 @@ const Features = () => {
 
       return result;
     };
-
 
     setTimeout(() => {
       setRandomEvent(getRandomItems(eventList, 4));
@@ -52,11 +50,14 @@ const Features = () => {
               <Card key={index} event={item}></Card>
             ))}
           </div>
-                  <div className="text-center mt-12">
-          <Link href="/items"><button className="btn btn-ghost text-orange-500 font-bold text-[20px]">View More →</button></Link>
+          <div className="text-center mt-12">
+            <Link href="/items">
+              <button className="btn btn-ghost text-orange-500 font-bold text-[20px]">
+                View More →
+              </button>
+            </Link>
+          </div>
         </div>
-        </div>
-
       </section>
     </>
   );

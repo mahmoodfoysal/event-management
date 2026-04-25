@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast"; // Only import toast
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { user, loading } = useAuth();
@@ -41,7 +41,6 @@ const Register = () => {
     try {
       await signInWithPopup(auth, provider);
 
-      // TRIGGER SUCCESS TOAST
       toast.success("Account created with Google!", { style: toastStyle });
 
       router.push("/");
@@ -88,7 +87,6 @@ const Register = () => {
 
       await user.reload();
 
-      // TRIGGER SUCCESS TOAST
       toast.success("Account created successfully!", { style: toastStyle });
 
       router.push("/");

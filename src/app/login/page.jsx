@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast"; // Only import toast
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { user, loading } = useAuth();
@@ -33,7 +33,6 @@ const Login = () => {
     try {
       await signInWithPopup(auth, provider);
 
-      // TRIGGER SUCCESS TOAST
       toast.success("Signed in successfully!", { style: toastStyle });
 
       router.push("/");

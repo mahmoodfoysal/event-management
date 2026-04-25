@@ -4,16 +4,14 @@ import React from "react";
 import { projects } from "@/data/events";
 import Card from "@/components/card/Card";
 import Link from "next/link";
-import toast, { Toaster } from "react-hot-toast"; // 1. Added Toaster import
+import toast, { Toaster } from "react-hot-toast";
 
 const Page = () => {
   const params = useParams();
   const itemId = params?.id;
 
-  // Find project by ID - Added safety for the ID parsing
   const Detail = projects?.find((event) => event.id === Number(itemId));
 
-  // Filter related events by Category
   const reletedEvents = projects
     ?.filter(
       (event) => event.category === Detail?.category && event.id !== Detail?.id,

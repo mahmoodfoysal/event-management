@@ -18,7 +18,6 @@ const AddProjectForm = () => {
     imageUrl: "",
   });
 
-  // Shared toast style
   const toastStyle = {
     borderRadius: "16px",
     background: "#1e293b",
@@ -48,7 +47,6 @@ const AddProjectForm = () => {
         category_id: 1,
       };
 
-      console.log("Success:", finalData);
       toast.dismiss(loadingToastId);
       toast.success("Item Added Successfully!", {
         duration: 3000,
@@ -56,7 +54,6 @@ const AddProjectForm = () => {
         position: "top-center",
       });
 
-      // Clear Form
       setFormData({
         title: "",
         shortDescription: "",
@@ -68,7 +65,7 @@ const AddProjectForm = () => {
       });
     } catch (error) {
       toast.error("Failed to add item. Please try again.", {
-        id: loadingToastId, // Error replacing loading is fine
+        id: loadingToastId,
         duration: 3000,
         style: toastStyle,
       });

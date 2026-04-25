@@ -1,10 +1,9 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Card = ({ event }) => {
-  // Guard clause to handle undefined event data
   if (!event) return null;
   const toastStyle = {
     borderRadius: "16px",

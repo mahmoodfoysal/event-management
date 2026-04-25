@@ -13,7 +13,6 @@ const Page = () => {
     (event) =>
       event.category_id === Detail?.category_id && event.id !== Detail?.id,
   );
-  console.log("reletedEvents", reletedEvents);
 
   return (
     <>
