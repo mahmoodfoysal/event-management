@@ -84,7 +84,7 @@ const ProductList = () => {
     <div className="min-h-screen bg-white relative overflow-hidden">
       {/* --- DRAWER OVERLAY --- */}
       <div
-        className={`fixed inset-0 z-50 transition-all duration-500 ${selectedProduct ? "visible" : "invisible"}`}
+        className={`fixed inset-0 z-[2000] transition-all duration-500 ${selectedProduct ? "visible" : "invisible"}`}
       >
         <div
           className={`absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500 ${selectedProduct ? "opacity-100" : "opacity-0"}`}
@@ -96,16 +96,19 @@ const ProductList = () => {
         >
           {selectedProduct && (
             <>
-              <div className="flex justify-between items-center mb-8">
-                <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-[10px] font-black uppercase tracking-widest">
-                  {selectedProduct.category}
-                </span>
-                <button
-                  onClick={() => setSelectedProduct(null)}
-                  className="p-2 hover:bg-slate-100 rounded-full transition-colors"
-                >
-                  <X className="w-6 h-6 text-slate-400" />
-                </button>
+              {/* DRAWER HEADER WITH X BUTTON TOP-LEFT */}
+              <div className="flex justify-between items-center mb-8 ">
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => setSelectedProduct(null)}
+                    className="group p-2 bg-slate-50 hover:bg-orange-500 rounded-full transition-all duration-300 cursor-pointer"
+                  >
+                    <X className="w-6 h-6 text-slate-400 group-hover:text-white transition-colors" />
+                  </button>
+                  <span className="px-3 py-1 bg-orange-100 text-orange-600 rounded-full text-[10px] font-black uppercase tracking-widest">
+                    {selectedProduct.category}
+                  </span>
+                </div>
               </div>
 
               <div className="flex-1 overflow-y-auto space-y-6 scrollbar-hide">
@@ -196,7 +199,7 @@ const ProductList = () => {
         </Link>
       </div>
 
-      {/* --- TABLE CONTENT (DESKTOP) --- */}
+      {/* --- DESKTOP TABLE VIEW --- */}
       <div className="hidden md:block w-full overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
@@ -291,13 +294,13 @@ const ProductList = () => {
             <div className="flex gap-2">
               <button
                 onClick={() => setSelectedProduct(product)}
-                className="flex-1 h-11 bg-slate-50 border border-slate-100 rounded-xl text-slate-600 font-bold text-xs flex items-center justify-center gap-2"
+                className="flex-1 h-11 bg-slate-50 border border-slate-100 rounded-xl text-slate-600 font-bold text-xs flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Eye className="w-4 h-4" /> View Details
               </button>
               <button
                 onClick={() => handleDelete(product.id)}
-                className="w-11 h-11 bg-white border border-slate-100 rounded-xl text-slate-400 flex items-center justify-center"
+                className="w-11 h-11 bg-white border border-slate-100 rounded-xl text-slate-400 flex items-center justify-center cursor-pointer hover:text-red-500"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
@@ -316,14 +319,22 @@ const ProductList = () => {
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
-            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 ${currentPage === 1 ? "bg-slate-50 text-slate-300" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+              currentPage === 1
+                ? "bg-slate-50 text-slate-300"
+                : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+            }`}
           >
             <ChevronLeft className="w-4 h-4" /> Previous
           </button>
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
-            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 ${currentPage === totalPages ? "bg-slate-50 text-slate-300" : "bg-slate-900 text-white hover:bg-orange-500"}`}
+            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 cursor-pointer ${
+              currentPage === totalPages
+                ? "bg-slate-50 text-slate-300"
+                : "bg-slate-900 text-white hover:bg-orange-500"
+            }`}
           >
             Next <ChevronRight className="w-4 h-4" />
           </button>

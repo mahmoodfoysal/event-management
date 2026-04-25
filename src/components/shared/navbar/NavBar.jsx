@@ -12,6 +12,7 @@ import {
   Activity,
   LogOut,
   LayoutDashboard,
+  X,
 } from "lucide-react";
 import "./NavBar.css";
 
@@ -44,7 +45,7 @@ const NavBar = () => {
   return (
     <>
       {/* <Toaster position="top-center" reverseOrder={false} /> */}
-      <div className="drawer sticky z-[2000] top-0">
+      <div className="drawer sticky z-[1000] top-0">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
           {/* --- Navbar --- */}
@@ -58,7 +59,7 @@ const NavBar = () => {
                 <div className="avatar">
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 group-hover:scale-105 transition-transform">
                     <img
-                      src="https://plus.unsplash.com/premium_vector-1683141234968-b4f861c0546a?q=80&w=966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Replace with your actual logo path (e.g., /logo.png or a URL)
+                      src="https://plus.unsplash.com/premium_vector-1683141234968-b4f861c0546a?q=80&w=966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                       alt="Odyssey Logo"
                       className="object-cover"
                     />
@@ -202,12 +203,22 @@ const NavBar = () => {
         </div>
 
         {/* --- Mobile Sidebar (Drawer) --- */}
-        <div className="drawer-side z-50">
+        <div className="drawer-side z-[2000]">
           <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-          <div className="p-4 w-80 min-h-full bg-base-100 flex flex-col">
+          <div className="p-4 w-70 min-h-full bg-base-100 flex flex-col relative">
+            {/* --- ADDED: CLOSE BUTTON (X) TOP RIGHT --- */}
+            <div className="absolute right-4 top-4">
+              <label
+                htmlFor="my-drawer-3"
+                className="btn btn-sm btn-circle btn-ghost"
+              >
+                <X className="w-5 h-5 text-slate-500" />
+              </label>
+            </div>
+
             {/* Mobile User Info */}
             {user && (
-              <div className="flex items-center gap-4 mb-8 p-4 bg-base-200 rounded-2xl">
+              <div className="flex items-center gap-4 mb-8 p-4 bg-base-200 rounded-2xl mt-8">
                 <div className="avatar">
                   <div className="w-12 rounded-full ring ring-primary">
                     <img
