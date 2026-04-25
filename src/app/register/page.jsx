@@ -38,22 +38,12 @@ const Register = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const loginToastId = toast.loading("Connecting to Google...", {
-      position: "top-center",
-      style: toastStyle,
-    });
     try {
       const result = await signInWithPopup(auth, provider);
-      toast.dismiss(loginToastId);
-      toast.success(`Welcome, ${result.user.displayName}!`, {
-        style: toastStyle,
-        position: "top-center",
-      });
 
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
-        id: loginToastId,
         duration: 3000,
         style: toastStyle,
       });
@@ -80,11 +70,6 @@ const Register = () => {
       return;
     }
 
-    const regToastId = toast.loading("Creating your account...", {
-      position: "top-center",
-      style: toastStyle,
-    });
-
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -100,12 +85,9 @@ const Register = () => {
 
       await user.reload();
 
-      toast.dismiss(regToastId);
-
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
-        id: regToastId,
         duration: 3000,
         style: toastStyle,
       });
