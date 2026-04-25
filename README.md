@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Project Name
 
-## Getting Started
+Odyssey Event Management
 
-First, run the development server:
+## Live
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+-Link : https://event-management-foysal.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Uses technology
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Next.js
+- Tailwind CSS
+- Daisy UI
+- CSS
+- JSX
+- Firebase authentication
+- React Hot Toast
+- Material Icon
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Protected Page
 
-## Learn More
+- After login user can visit Add item and manage item page.
+- If user logged in then they can not visit login and registration page.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Details
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- This project is event management focus website.
+- We planing event and also selling the event tickets in collaboration with client.
+- Landing page have a hero section, about our service, upcoming event, successful project, subscription form, banner. Navbar and footer rape all the website.
+- The items page has a show upcoming event list and client can booked. Visitor also can see details click by view details button.
+- The project page shows our successfully arranged project who have been done.
+- The About page shows our company and services.
+- People can reach out from the contact page.
+- Add page, add new item. This page is protected by user login.
+- The Manage Item page can manage items. This page also user binding.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Future Work
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Booking event
+- Get ticket collect after booking
+- Contact with us page complete functionality.
+- Add payment system
