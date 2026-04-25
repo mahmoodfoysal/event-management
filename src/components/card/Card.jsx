@@ -1,10 +1,24 @@
 "use client";
 import Link from "next/link";
 import React from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const Card = ({ event }) => {
   // Guard clause to handle undefined event data
   if (!event) return null;
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+  const handleMessage = () => {
+    toast.success(`Booking Comming Soon`, {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
+  };
 
   return (
     <div className="group bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-200/60 flex flex-col h-full">
@@ -47,7 +61,10 @@ const Card = ({ event }) => {
             </button>
           </Link>
 
-          <button className="btn btn-primary btn-sm rounded-xl w-full font-bold text-white shadow-sm capitalize">
+          <button
+            onClick={handleMessage}
+            className="btn btn-primary btn-sm rounded-xl w-full font-bold text-white shadow-sm capitalize"
+          >
             Book Now
           </button>
         </div>

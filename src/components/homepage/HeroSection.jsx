@@ -2,8 +2,22 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, Sparkles, Play } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 const HeroSection = () => {
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+  const handleMessage = () => {
+    toast.success(`Comming Soon`, {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
+  };
   return (
     <section className="relative overflow-hidden bg-base-100 py-12 lg:py-20 px-4 lg:px-12">
       {/* --- BACKGROUND LAYER --- */}
@@ -45,11 +59,17 @@ const HeroSection = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
-            <button className="btn btn-primary btn-lg rounded-2xl px-8 font-bold shadow-2xl shadow-primary/30 group">
+            <button
+              onClick={handleMessage}
+              className="btn btn-primary btn-lg rounded-2xl px-8 font-bold shadow-2xl shadow-primary/30 group"
+            >
               Create Your Event
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="btn btn-ghost btn-lg rounded-2xl px-8 border border-slate-200 hover:bg-slate-50">
+            <button
+              onClick={handleMessage}
+              className="btn btn-ghost btn-lg rounded-2xl px-8 border border-slate-200 hover:bg-slate-50"
+            >
               <Play className="w-4 h-4 mr-2 fill-current" />
               Explore Demo
             </button>

@@ -27,7 +27,7 @@ const AddProjectForm = () => {
     e.preventDefault();
 
     const loadingToast = toast.loading("Processing your request...", {
-      duration: 4000,
+      duration: 3000,
       style: {
         borderRadius: "16px",
         background: "#1e293b",
@@ -37,7 +37,6 @@ const AddProjectForm = () => {
     });
 
     try {
-      // Simulate API logic delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const finalData = {
@@ -50,7 +49,7 @@ const AddProjectForm = () => {
 
       toast.success("Item Added Successfully!", {
         id: loadingToast,
-        duration: 4000,
+        duration: 3000,
         style: {
           borderRadius: "16px",
           background: "#1e293b",

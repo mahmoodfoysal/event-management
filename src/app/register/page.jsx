@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
 import { auth } from "@/lib/firebase";
 import {
   createUserWithEmailAndPassword,
@@ -13,6 +14,8 @@ import { useRouter } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const { user, loading } = useAuth();
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -24,7 +27,6 @@ const Register = () => {
     email: false,
     password: false,
   });
-  const router = useRouter();
 
   const provider = new GoogleAuthProvider();
 
@@ -44,14 +46,14 @@ const Register = () => {
       const result = await signInWithPopup(auth, provider);
       toast.success(`Welcome, ${result.user.displayName}!`, {
         id: loginToast,
-        duration: 4000,
+        duration: 3000,
         style: toastStyle,
       });
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
         id: loginToast,
-        duration: 4000,
+        duration: 3000,
         style: toastStyle,
       });
     }
@@ -71,7 +73,7 @@ const Register = () => {
     if (newErrors.fullName || newErrors.email || newErrors.password) {
       toast.error("Please fill in all required fields.", {
         position: "top-center",
-        duration: 4000,
+        duration: 3000,
         style: toastStyle,
       });
       return;
@@ -99,25 +101,30 @@ const Register = () => {
 
       toast.success(`Welcome aboard, ${fullName}!`, {
         id: regToast,
-        duration: 4000,
+        duration: 3000,
         style: toastStyle,
       });
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
         id: regToast,
-        duration: 4000,
+        duration: 3000,
         style: toastStyle,
       });
     }
   };
 
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/");
+    }
+  }, [user, loading, router]);
+
+  if (user)
+    return <p className="text-center py-10 font-bold">Checking auth...</p>;
+
   return (
     <>
-      {/* FIX: Explicitly setting position here. 
-          IMPORTANT: If you have a <Toaster /> in your layout.js, 
-          remove this one to avoid duplicate instances.
-      */}
       <Toaster position="top-center" reverseOrder={false} />
 
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
