@@ -40,7 +40,6 @@ const AddProjectForm = () => {
     });
 
     try {
-      // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const finalData = {
@@ -50,8 +49,6 @@ const AddProjectForm = () => {
       };
 
       console.log("Success:", finalData);
-
-      // FIX: Dismiss loading and show fresh success toast so it auto-closes
       toast.dismiss(loadingToastId);
       toast.success("Item Added Successfully!", {
         duration: 3000,
@@ -89,8 +86,6 @@ const AddProjectForm = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 flex justify-center items-center relative">
-      <Toaster position="top-center" reverseOrder={false} />
-
       <div className="w-full max-w-4xl bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-white overflow-hidden">
         <div className="p-8 md:p-12">
           <div className="mb-10">
