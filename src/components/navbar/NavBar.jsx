@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
@@ -12,9 +13,11 @@ import {
   LogOut,
   LayoutDashboard,
 } from "lucide-react";
+import "./NavBar.css";
 
 const NavBar = () => {
   const { user, logout } = useAuth();
+  const pathname = usePathname();
 
   const routes = [
     { name: "Home", path: "/" },
@@ -70,13 +73,13 @@ const NavBar = () => {
             </div>
 
             {/* Desktop Menu */}
-            <div className="flex-none hidden lg:block">
+            <div className="flex-none hidden lg:block nav-link">
               <ul className="menu menu-horizontal px-1 gap-1 mr-4">
                 {routes.map((route) => (
                   <li key={route.path}>
                     <Link
                       href={route.path}
-                      className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                      className={`font-sans font-medium text-sm hover:text-primary transition-colors ${pathname === route.path ? "active" : ""}`}
                     >
                       {route.name}
                     </Link>
@@ -130,7 +133,7 @@ const NavBar = () => {
                         Account
                       </p>
                       <p className="text-sm font-bold truncate text-slate-900">
-                        {user?.displayName || "Foysal Mahmood"}
+                        {user?.displayName || "User"}
                       </p>
                     </div>
                     <li>
@@ -155,12 +158,12 @@ const NavBar = () => {
                   </ul>
                 </div>
               ) : (
-                <div className="hidden lg:flex items-center">
+                <div className="hidden lg:flex items-center nav-link">
                   <ul className="menu menu-horizontal px-1">
                     <li>
                       <Link
                         href="/login"
-                        className="font-sans font-medium text-sm hover:text-primary transition-colors"
+                        className={`font-sans font-medium text-sm hover:text-primary transition-colors ${pathname.startsWith("/login") ? "active" : ""}`}
                       >
                         Login
                       </Link>
@@ -227,12 +230,12 @@ const NavBar = () => {
               </div>
             )}
 
-            <ul className="menu text-base-content gap-2">
+            <ul className="menu text-base-content gap-2 nav-link">
               {routes.map((route) => (
                 <li key={route.path}>
                   <Link
                     href={route.path}
-                    className="text-lg font-bold py-4 border-b border-base-200"
+                    className={`text-lg font-bold py-4 border-b border-base-200 ${pathname === route.path ? "active" : ""}`}
                   >
                     {route.name}
                   </Link>
@@ -253,13 +256,16 @@ const NavBar = () => {
                   <li>
                     <Link
                       href="/login"
-                      className="text-lg font-bold py-4 border-b border-base-200"
+                      className={`text-lg font-bold py-4 border-b border-base-200 ${pathname.startsWith("/login") ? "active" : ""}`}
                     >
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link href="/register" className="text-lg font-bold py-4">
+                    <Link
+                      href="/register"
+                      className={`text-lg font-bold py-4 border-b border-base-200 ${pathname.startsWith("/register") ? "active" : ""}`}
+                    >
                       Register
                     </Link>
                   </li>
