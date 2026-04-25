@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import {
   Eye,
   Trash2,
-  Search,
   Plus,
   ChevronLeft,
   ChevronRight,
@@ -93,7 +92,7 @@ const ProductList = () => {
         />
 
         <div
-          className={`absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-500 ease-out p-8 flex flex-col ${selectedProduct ? "translate-x-0" : "translate-x-full"}`}
+          className={`absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl transition-transform duration-500 ease-out p-6 md:p-8 flex flex-col ${selectedProduct ? "translate-x-0" : "translate-x-full"}`}
         >
           {selectedProduct && (
             <>
@@ -109,18 +108,18 @@ const ProductList = () => {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto space-y-6">
+              <div className="flex-1 overflow-y-auto space-y-6 scrollbar-hide">
                 <img
                   src={selectedProduct.image}
-                  className="w-full h-64 object-cover rounded-[2rem] shadow-lg"
+                  className="w-full h-48 md:h-64 object-cover rounded-[1.5rem] md:rounded-[2rem] shadow-lg"
                   alt=""
                 />
 
                 <div>
-                  <h2 className="text-3xl font-black text-slate-900 leading-tight">
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight">
                     {selectedProduct.title}
                   </h2>
-                  <p className="text-2xl font-black text-orange-500 mt-2">
+                  <p className="text-xl md:text-2xl font-black text-orange-500 mt-2">
                     ${selectedProduct.price.toFixed(2)}
                   </p>
                 </div>
@@ -147,7 +146,7 @@ const ProductList = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-900">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-900">
                     Short Description
                   </h4>
                   <p className="text-slate-500 text-sm leading-relaxed">
@@ -155,7 +154,7 @@ const ProductList = () => {
                   </p>
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-900">
+                  <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-900">
                     Long Description
                   </h4>
                   <p className="text-slate-500 text-sm leading-relaxed">
@@ -164,14 +163,14 @@ const ProductList = () => {
                 </div>
               </div>
 
-              <div className="pt-8 border-t border-slate-100 flex gap-3">
+              <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={() => handleDelete(selectedProduct.id)}
-                  className="cursor-pointer flex-1 h-14 bg-red-50 text-red-600 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all"
+                  className="cursor-pointer flex-1 h-12 bg-red-50 text-red-600 rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all"
                 >
                   <Trash2 className="w-4 h-4" /> Delete Item
                 </button>
-                <button className="cursor-pointer flex-1 h-14 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-orange-500 transition-all">
+                <button className="cursor-pointer flex-1 h-12 bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-orange-500 transition-all">
                   Edit Details
                 </button>
               </div>
@@ -180,25 +179,25 @@ const ProductList = () => {
         </div>
       </div>
 
-      {/* --- TABLE CONTENT (Header) --- */}
-      <div className="w-full border-b border-slate-100 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      {/* --- HEADER --- */}
+      <div className="w-full border-b border-slate-100 px-6 md:px-8 py-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">
             Item <span className="text-orange-500">Inventory</span>
           </h1>
-          <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">
+          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-1">
             Total Items: {products.length}
           </p>
         </div>
-        <Link href="/items/add">
-          <button className="cursor-pointer h-12 px-6 bg-orange-500 text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-slate-900 transition-all">
+        <Link href="/items/add" className="w-full md:w-auto">
+          <button className="w-full md:w-auto cursor-pointer h-12 px-6 bg-orange-500 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-slate-900 transition-all">
             <Plus className="w-4 h-4" /> Add Item
           </button>
         </Link>
       </div>
 
-      {/* --- TABLE CONTENT (Body) --- */}
-      <div className="w-full overflow-x-auto">
+      {/* --- TABLE CONTENT (DESKTOP) --- */}
+      <div className="hidden md:block w-full overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-slate-50/50 border-b border-slate-100 text-left">
@@ -264,26 +263,69 @@ const ProductList = () => {
         </table>
       </div>
 
-      {/* --- TABLE CONTENT (Footer) --- */}
-      <div className="w-full px-8 py-6 border-t border-slate-100 flex justify-between items-center bg-white">
+      {/* --- MOBILE CARD VIEW --- */}
+      <div className="md:hidden grid grid-cols-1 divide-y divide-slate-100">
+        {currentItems.map((product) => (
+          <div key={product.id} className="p-6 space-y-4">
+            <div className="flex items-center gap-4">
+              <img
+                src={product.image}
+                className="w-16 h-16 rounded-2xl object-cover border border-slate-100"
+                alt=""
+              />
+              <div className="flex-1">
+                <p className="font-bold text-slate-900 leading-tight mb-1">
+                  {product.title}
+                </p>
+                <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full text-[9px] font-black uppercase tracking-widest">
+                  {product.category}
+                </span>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-black text-slate-900">
+                  ${product.price.toFixed(2)}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSelectedProduct(product)}
+                className="flex-1 h-11 bg-slate-50 border border-slate-100 rounded-xl text-slate-600 font-bold text-xs flex items-center justify-center gap-2"
+              >
+                <Eye className="w-4 h-4" /> View Details
+              </button>
+              <button
+                onClick={() => handleDelete(product.id)}
+                className="w-11 h-11 bg-white border border-slate-100 rounded-xl text-slate-400 flex items-center justify-center"
+              >
+                <Trash2 className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* --- PAGINATION --- */}
+      <div className="w-full px-6 md:px-8 py-6 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-white">
         <p className="text-slate-400 text-xs font-medium">
           Showing {indexOfFirstItem + 1} to{" "}
           {Math.min(indexOfLastItem, products.length)} of {products.length}
         </p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full md:w-auto">
           <button
             disabled={currentPage === 1}
             onClick={() => setCurrentPage(currentPage - 1)}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${currentPage === 1 ? "bg-slate-50 text-slate-300" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
+            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 ${currentPage === 1 ? "bg-slate-50 text-slate-300" : "bg-slate-100 text-slate-600 hover:bg-slate-200"}`}
           >
-            <ChevronLeft className="w-4 h-4 inline" /> Previous
+            <ChevronLeft className="w-4 h-4" /> Previous
           </button>
           <button
             disabled={currentPage === totalPages}
             onClick={() => setCurrentPage(currentPage + 1)}
-            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${currentPage === totalPages ? "bg-slate-50 text-slate-300" : "bg-slate-900 text-white hover:bg-orange-500"}`}
+            className={`flex-1 md:flex-none px-4 py-2.5 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1 ${currentPage === totalPages ? "bg-slate-50 text-slate-300" : "bg-slate-900 text-white hover:bg-orange-500"}`}
           >
-            Next <ChevronRight className="w-4 h-4 inline" />
+            Next <ChevronRight className="w-4 h-4" />
           </button>
         </div>
       </div>
