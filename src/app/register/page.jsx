@@ -11,7 +11,7 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast"; // Only import toast
 
 const Register = () => {
   const { user, loading } = useAuth();
@@ -39,7 +39,10 @@ const Register = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      const result = await signInWithPopup(auth, provider);
+      await signInWithPopup(auth, provider);
+
+      // TRIGGER SUCCESS TOAST
+      toast.success("Account created with Google!", { style: toastStyle });
 
       router.push("/");
     } catch (err) {
@@ -85,6 +88,9 @@ const Register = () => {
 
       await user.reload();
 
+      // TRIGGER SUCCESS TOAST
+      toast.success("Account created successfully!", { style: toastStyle });
+
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
@@ -105,8 +111,7 @@ const Register = () => {
 
   return (
     <>
-      <Toaster position="top-center" reverseOrder={false} />
-
+      {/* LOCAL TOASTER REMOVED FROM HERE */}
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
         {/* --- LEFT SIDE: BRANDING --- */}
         <div className="w-full lg:w-1/2 bg-slate-900 p-12 md:p-20 text-white flex flex-col justify-between relative overflow-hidden min-h-[40vh] lg:min-h-screen">
