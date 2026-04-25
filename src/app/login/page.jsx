@@ -22,7 +22,6 @@ const Login = () => {
 
   const provider = new GoogleAuthProvider();
 
-  // Shared toast style
   const toastStyle = {
     borderRadius: "16px",
     background: "#1e293b",

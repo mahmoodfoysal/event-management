@@ -5,11 +5,8 @@ import Services from "@/components/services/Services";
 import SignatureProjects from "@/components/signatureProjects/SignatureProjects";
 import Subscription from "@/components/subscription/Subscription";
 import Testimonial from "@/components/testimonial/Testimonial";
-import Image from "next/image";
-import toast from "react-hot-toast";
 
 export default function Home() {
-  toast.dismiss(loginToastId);
   return (
     <>
       <HeroSection></HeroSection>
