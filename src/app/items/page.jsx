@@ -34,7 +34,7 @@ const Page = () => {
   const totalPages = Math.ceil(filteredEvents.length / ITEMS_PER_PAGE);
   const paginatedEvents = filteredEvents.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    currentPage * ITEMS_PER_PAGE,
   );
 
   const categories = [
@@ -42,7 +42,7 @@ const Page = () => {
       events.map((e) => [
         e.category_id,
         { id: e.category_id, name: e.category },
-      ])
+      ]),
     ).values(),
   ];
 
@@ -50,7 +50,7 @@ const Page = () => {
 
   const handleCategoryChange = (id) => {
     setSelectedCategories((prev) =>
-      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((c) => c !== id) : [...prev, id],
     );
     setCurrentPage(1);
   };
@@ -70,28 +70,32 @@ const Page = () => {
   return (
     <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-12">
       <div className="max-w-[1600px] mx-auto">
-        
         {/* Header Summary Section */}
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
           <div>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight">
               Featured <span className="text-orange-500 italic">Events</span>
             </h1>
-            <p className="text-slate-500 font-medium mt-2">Showing {filteredEvents.length} results from our collection</p>
+            <p className="text-slate-500 font-medium mt-2">
+              Showing {filteredEvents.length} results from our collection
+            </p>
           </div>
-          <button onClick={resetFilters} className="btn btn-ghost btn-sm text-orange-600 font-bold hover:bg-orange-50 transition-all">
+          <button
+            onClick={resetFilters}
+            className="btn btn-ghost btn-sm text-orange-600 font-bold hover:bg-orange-50 transition-all"
+          >
             Clear Filters
           </button>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-12">
-          
           {/* ================= SIDEBAR (FIXED WIDE DESIGN) ================= */}
           <aside className="w-full lg:min-w-[340px] lg:w-[340px] space-y-10 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 h-fit lg:sticky lg:top-24">
-            
             {/* Search Section */}
             <div className="form-control w-full">
-              <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-2">Search Event</label>
+              <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400 mb-2">
+                Search Event
+              </label>
               <div className="relative">
                 <input
                   value={search}
@@ -111,10 +115,15 @@ const Page = () => {
 
             {/* Categories Section */}
             <div className="space-y-5">
-              <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">By Category</label>
+              <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                By Category
+              </label>
               <div className="flex flex-col gap-3">
                 {categories?.map((cat, index) => (
-                  <label key={index} className="flex items-center gap-3 cursor-pointer group">
+                  <label
+                    key={index}
+                    className="flex items-center gap-3 cursor-pointer group"
+                  >
                     <input
                       checked={selectedCategories.includes(cat.id)}
                       onChange={() => handleCategoryChange(cat.id)}
@@ -131,36 +140,44 @@ const Page = () => {
 
             {/* Location Section - Styled as Badges */}
             <div className="space-y-5">
-  <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
-    By Location
-  </label>
-  <div className="flex flex-col gap-3"> {/* Changed from flex-wrap gap-2 to flex-col gap-3 */}
-    {locations?.map((loc, index) => (
-      <button
-        key={index}
-        onClick={() => setSelectedlocation(selectedlocation === loc ? "" : loc)}
-        className={`px-4 py-3 cursor-pointer rounded-xl text-xs font-bold transition-all border text-left w-full ${
-          selectedlocation === loc
-            ? "bg-orange-500 border-orange-500 text-white shadow-md shadow-orange-100"
-            : "bg-white border-slate-200 text-slate-500 hover:border-orange-500"
-        }`}
-      >
-        <div className="flex items-center justify-between">
-          <span>{loc}</span>
-          {selectedlocation === loc && (
-            <span className="text-[10px]">✔</span> // Optional checkmark for better UX
-          )}
-        </div>
-      </button>
-    ))}
-  </div>
-</div>
+              <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                By Location
+              </label>
+              <div className="flex flex-col gap-3">
+                {" "}
+                {/* Changed from flex-wrap gap-2 to flex-col gap-3 */}
+                {locations?.map((loc, index) => (
+                  <button
+                    key={index}
+                    onClick={() =>
+                      setSelectedlocation(selectedlocation === loc ? "" : loc)
+                    }
+                    className={`px-4 py-3 cursor-pointer rounded-xl text-xs font-bold transition-all border text-left w-full ${
+                      selectedlocation === loc
+                        ? "bg-orange-500 border-orange-500 text-white shadow-md shadow-orange-100"
+                        : "bg-white border-slate-200 text-slate-500 hover:border-orange-500"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{loc}</span>
+                      {selectedlocation === loc && (
+                        <span className="text-[10px]">✔</span> // Optional checkmark for better UX
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* Price Slider Section */}
             <div className="space-y-5">
               <div className="flex justify-between items-center">
-                <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">Max Price</label>
-                <span className="text-sm font-black text-slate-900">${price || maxPrice}</span>
+                <label className="label text-[10px] uppercase font-bold tracking-widest text-slate-400">
+                  Max Price
+                </label>
+                <span className="text-sm font-black text-slate-900">
+                  ${price || maxPrice}
+                </span>
               </div>
               <input
                 type="range"
@@ -187,7 +204,15 @@ const Page = () => {
               </div>
             ) : (
               <div className="w-full bg-white rounded-[3rem] py-24 text-center border border-dashed border-slate-300">
-                <p className="text-slate-400 font-bold italic text-lg">No events match your current filters.</p>
+                <p className="text-slate-400 font-bold italic text-lg">
+                  No events match your current filters.
+                </p>
+                <button
+                  onClick={resetFilters}
+                  className="btn btn-ghost btn-sm text-orange-600 font-bold hover:bg-orange-50 transition-all"
+                >
+                  Clear Filters
+                </button>
               </div>
             )}
 
@@ -207,9 +232,9 @@ const Page = () => {
                       key={i}
                       onClick={() => setCurrentPage(i + 1)}
                       className={`join-item btn px-6 ${
-                        currentPage === i + 1 
-                        ? "btn-primary text-white" 
-                        : "btn-ghost border-l border-slate-100"
+                        currentPage === i + 1
+                          ? "btn-primary text-white"
+                          : "btn-ghost border-l border-slate-100"
                       }`}
                     >
                       {i + 1}
@@ -217,7 +242,9 @@ const Page = () => {
                   ))}
                   <button
                     className="join-item btn btn-ghost px-6 border-l border-slate-100 disabled:opacity-30"
-                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                    onClick={() =>
+                      setCurrentPage((p) => Math.min(p + 1, totalPages))
+                    }
                     disabled={currentPage === totalPages}
                   >
                     Next
@@ -226,7 +253,6 @@ const Page = () => {
               </div>
             )}
           </main>
-
         </div>
       </div>
     </div>
