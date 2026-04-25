@@ -38,12 +38,12 @@ const Login = () => {
 
     try {
       const result = await signInWithPopup(auth, provider);
-      toast.dismiss(loginToastId);
+
       toast.success(`Welcome, ${result.user.displayName}!`, {
         style: toastStyle,
         position: "top-center",
       });
-
+      toast.dismiss(loginToastId);
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
