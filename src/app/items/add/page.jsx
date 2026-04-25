@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast"; // 1. Import toast
+import toast, { Toaster } from "react-hot-toast";
 
 const AddProjectForm = () => {
   const { user, loading } = useAuth();
@@ -26,8 +26,15 @@ const AddProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 2. Initialize a loading toast
-    const loadingToast = toast.loading("Processing your request...");
+    const loadingToast = toast.loading("Processing your request...", {
+      duration: 4000,
+      style: {
+        borderRadius: "16px",
+        background: "#1e293b",
+        color: "#fff",
+        fontWeight: "bold",
+      },
+    });
 
     try {
       // Simulate API logic delay
@@ -41,12 +48,17 @@ const AddProjectForm = () => {
 
       console.log("Success:", finalData);
 
-      // 3. Update the toast to Success
       toast.success("Item Added Successfully!", {
         id: loadingToast,
+        duration: 4000,
+        style: {
+          borderRadius: "16px",
+          background: "#1e293b",
+          color: "#fff",
+          fontWeight: "bold",
+        },
       });
 
-      // Reset Form
       setFormData({
         title: "",
         shortDescription: "",
@@ -57,7 +69,6 @@ const AddProjectForm = () => {
         imageUrl: "",
       });
     } catch (error) {
-      // 4. Update the toast to Error if something goes wrong
       toast.error("Failed to add item. Please try again.", {
         id: loadingToast,
       });

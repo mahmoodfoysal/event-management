@@ -82,7 +82,8 @@ const NavBar = () => {
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       <img
                         src={
-                          user?.photoURL || "https://i.pravatar.cc/150?u=foysal"
+                          user?.photoURL ||
+                          "https://api.dicebear.com/7.x/avataaars/svg?seed=Foysal"
                         }
                         alt="user"
                       />
@@ -179,14 +180,17 @@ const NavBar = () => {
               <div className="avatar">
                 <div className="w-12 rounded-full ring ring-primary">
                   <img
-                    src={user?.photoURL || "https://i.pravatar.cc/150?u=foysal"}
+                    src={
+                      user?.photoURL ||
+                      "https://api.dicebear.com/7.x/avataaars/svg?seed=Foysal"
+                    }
                     alt="user"
                   />
                 </div>
               </div>
               <div>
                 <p className="font-black text-sm tracking-tight">
-                  {user?.displayName || "Foysal Mahmood"}
+                  {user?.displayName || "User"}
                 </p>
                 <p className="text-[10px] uppercase font-bold text-slate-400">
                   Premium Member

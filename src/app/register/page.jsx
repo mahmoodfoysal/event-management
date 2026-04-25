@@ -10,15 +10,15 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast"; // 1. Added modern toast
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [fullName, setFullName] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // 2. Track validation errors
   const [errors, setErrors] = useState({
     fullName: false,
     email: false,
@@ -28,21 +28,38 @@ const Register = () => {
 
   const provider = new GoogleAuthProvider();
 
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+
   const handleGoogleLogin = async () => {
-    const loginToast = toast.loading("Connecting to Google...");
+    const loginToast = toast.loading("Connecting to Google...", {
+      position: "top-center",
+      style: toastStyle,
+    });
     try {
       const result = await signInWithPopup(auth, provider);
-      toast.success(`Welcome, ${result.user.displayName}!`, { id: loginToast });
+      toast.success(`Welcome, ${result.user.displayName}!`, {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
       router.push("/");
     } catch (err) {
-      toast.error(err.message, { id: loginToast });
+      toast.error(err.message, {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
     }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // 3. Strict Validation Logic
     const newErrors = {
       fullName: !fullName.trim(),
       email: !email.trim(),
@@ -52,11 +69,18 @@ const Register = () => {
     setErrors(newErrors);
 
     if (newErrors.fullName || newErrors.email || newErrors.password) {
-      toast.error("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.", {
+        position: "top-center",
+        duration: 4000,
+        style: toastStyle,
+      });
       return;
     }
 
-    const regToast = toast.loading("Creating your account...");
+    const regToast = toast.loading("Creating your account...", {
+      position: "top-center",
+      style: toastStyle,
+    });
 
     try {
       const userCredential = await createUserWithEmailAndPassword(
@@ -68,22 +92,33 @@ const Register = () => {
 
       await updateProfile(user, {
         displayName: fullName,
-        photoURL: "",
+        photoURL: photoUrl,
       });
 
       await user.reload();
 
-      toast.success(`Welcome aboard, ${fullName}!`, { id: regToast });
+      toast.success(`Welcome aboard, ${fullName}!`, {
+        id: regToast,
+        duration: 4000,
+        style: toastStyle,
+      });
       router.push("/");
     } catch (err) {
-      toast.error(err.message, { id: regToast });
+      toast.error(err.message, {
+        id: regToast,
+        duration: 4000,
+        style: toastStyle,
+      });
     }
   };
 
   return (
     <>
-      {/* 4. Toaster Container */}
-      <Toaster position="center" reverseOrder={false} />
+      {/* FIX: Explicitly setting position here. 
+          IMPORTANT: If you have a <Toaster /> in your layout.js, 
+          remove this one to avoid duplicate instances.
+      */}
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
         {/* --- LEFT SIDE: BRANDING --- */}
@@ -163,6 +198,21 @@ const Register = () => {
                     ${errors.fullName ? "bg-red-50 border-red-200 focus:border-red-500 text-red-900" : "bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"}`}
                 />
               </div>
+              {/* Photo Field */}
+              <div className="space-y-2">
+                <label className="text-[11px] font-black uppercase tracking-[0.2em] ml-1 transition-colors text-slate-400">
+                  Photo Link
+                </label>
+                <input
+                  onChange={(e) => {
+                    setPhotoUrl(e.target.value);
+                  }}
+                  type="url"
+                  placeholder="Photo Url"
+                  className="w-full h-16 rounded-2xl px-6 focus:outline-none transition-all font-medium border shadow-sm 
+                    bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"
+                />
+              </div>
 
               {/* Email Field */}
               <div className="space-y-2">
@@ -203,7 +253,7 @@ const Register = () => {
                       ${errors.password ? "bg-red-50 border-red-200 focus:border-red-500 text-red-900" : "bg-slate-50 border-slate-100 focus:border-orange-500 focus:bg-white text-slate-900 placeholder:text-slate-300"}`}
                   />
                   <button
-                    type="button" // Important: type button prevents form submission
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 text-[10px] font-black uppercase tracking-widest"
                   >

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast"; // 1. Import toast components
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   Eye,
@@ -28,12 +28,9 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const itemsPerPage = 9;
 
-  // --- Updated Delete Logic with Toast ---
   const handleDelete = (id) => {
-    // 2. Wrap the logic in a promise for better UX
     const deletePromise = new Promise((resolve, reject) => {
       if (window.confirm("Are you sure you want to delete this product?")) {
-        // Simulate a small delay for the "processing" feel
         setTimeout(() => {
           setProducts((prev) => prev.filter((p) => p.id !== id));
           setSelectedProduct(null);
@@ -44,7 +41,6 @@ const ProductList = () => {
       }
     });
 
-    // 3. Trigger the toast notification
     toast.promise(
       deletePromise,
       {
@@ -148,10 +144,18 @@ const ProductList = () => {
 
                 <div className="space-y-3">
                   <h4 className="text-xs font-black uppercase tracking-widest text-slate-900">
-                    Description
+                    Short Description
                   </h4>
                   <p className="text-slate-500 text-sm leading-relaxed">
                     {selectedProduct.description}
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-900">
+                    Long Description
+                  </h4>
+                  <p className="text-slate-500 text-sm leading-relaxed">
+                    {selectedProduct.long_description}
                   </p>
                 </div>
               </div>

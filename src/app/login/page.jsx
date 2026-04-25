@@ -9,61 +9,91 @@ import {
 } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast"; // 1. Added modern toast
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: false, password: false }); // 2. Track empty fields
+  const [errors, setErrors] = useState({ email: false, password: false });
   const router = useRouter();
 
   const provider = new GoogleAuthProvider();
 
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+
   const handleGoogleLogin = async () => {
-    const loginToast = toast.loading("Authenticating with Google...");
+    const loginToast = toast.loading("Authenticating with Google...", {
+      position: "top-center",
+      style: toastStyle,
+    });
     try {
       const result = await signInWithPopup(auth, provider);
-      toast.success(`Welcome, ${result.user.displayName}!`, { id: loginToast });
+      toast.success(`Welcome, ${result.user.displayName}!`, {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
       router.push("/");
     } catch (err) {
-      toast.error(err.message, { id: loginToast });
+      toast.error(err.message, {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // 3. Validation Logic
     const emailEmpty = !email.trim();
     const passwordEmpty = !password.trim();
 
     setErrors({ email: emailEmpty, password: passwordEmpty });
 
     if (emailEmpty || passwordEmpty) {
-      toast.error("Please fill in all required fields.");
+      toast.error("Please fill in all required fields.", {
+        position: "top-center",
+        duration: 4000,
+        style: toastStyle,
+      });
       return;
     }
 
-    const loginToast = toast.loading("Verifying credentials...");
+    const loginToast = toast.loading("Verifying credentials...", {
+      position: "top-center",
+      style: toastStyle,
+    });
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      toast.success("Login Successful!", { id: loginToast });
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Login Successful!", {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
       router.push("/");
     } catch (err) {
-      toast.error("Invalid email or password.", { id: loginToast });
+      toast.error("Invalid email or password.", {
+        id: loginToast,
+        duration: 4000,
+        style: toastStyle,
+      });
     }
   };
 
   return (
     <>
-      {/* 4. Toaster Container (Place anywhere in the component) */}
-      <Toaster position="center" reverseOrder={false} />
+      {/* This ensures all toasts default to the top-center. 
+          If you have a Toaster in layout.js, delete this line. 
+      */}
+      <Toaster position="top-center" reverseOrder={false} />
 
       <div className="min-h-screen bg-white flex flex-col lg:flex-row">
         {/* --- LEFT SIDE: BRANDING --- */}
@@ -83,7 +113,8 @@ const Login = () => {
               <span className="text-orange-500">legacy</span> with us.
             </h1>
             <p className="text-slate-400 text-lg font-medium leading-relaxed max-w-md">
-              The worlds most intuitive platform for event management.
+              The worlds most intuitive platform for event management and
+              creative production.
             </p>
           </div>
 
@@ -170,7 +201,7 @@ const Login = () => {
                       }`}
                   />
                   <button
-                    type="button" // Change from submit to button so it doesn't trigger handleLogin
+                    type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 text-[10px] font-black uppercase tracking-widest"
                   >
