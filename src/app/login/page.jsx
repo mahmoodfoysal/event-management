@@ -22,6 +22,7 @@ const Login = () => {
 
   const provider = new GoogleAuthProvider();
 
+  // Shared toast style
   const toastStyle = {
     borderRadius: "16px",
     background: "#1e293b",
@@ -30,22 +31,27 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const loginToast = toast.loading("Authenticating with Google...", {
+    const loginToastId = toast.loading("Authenticating with Google...", {
       position: "top-center",
       style: toastStyle,
     });
+
     try {
       const result = await signInWithPopup(auth, provider);
+
+      // FIX: Dismiss loading first, then show fresh success toast
+      toast.dismiss(loginToastId);
       toast.success(`Welcome, ${result.user.displayName}!`, {
-        id: loginToast,
         duration: 3000,
         style: toastStyle,
+        position: "top-center",
       });
+
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
-        id: loginToast,
-        duration: 3000,
+        id: loginToastId,
+        duration: 4000,
         style: toastStyle,
       });
     }
@@ -68,23 +74,26 @@ const Login = () => {
       return;
     }
 
-    const loginToast = toast.loading("Verifying credentials...", {
+    const loginToastId = toast.loading("Verifying credentials...", {
       position: "top-center",
       style: toastStyle,
     });
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
+      toast.dismiss(loginToastId);
       toast.success("Login Successful!", {
-        id: loginToast,
         duration: 3000,
         style: toastStyle,
+        position: "top-center",
       });
+
       router.push("/");
     } catch (err) {
       toast.error("Invalid email or password.", {
-        id: loginToast,
-        duration: 3000,
+        id: loginToastId,
+        duration: 4000,
         style: toastStyle,
       });
     }

@@ -18,6 +18,14 @@ const AddProjectForm = () => {
     imageUrl: "",
   });
 
+  // Shared toast style
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -26,18 +34,14 @@ const AddProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const loadingToast = toast.loading("Processing your request...", {
-      duration: 3000,
-      style: {
-        borderRadius: "16px",
-        background: "#1e293b",
-        color: "#fff",
-        fontWeight: "bold",
-      },
+    const loadingToastId = toast.loading("Processing your request...", {
+      position: "top-center",
+      style: toastStyle,
     });
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const finalData = {
         ...formData,
@@ -47,17 +51,15 @@ const AddProjectForm = () => {
 
       console.log("Success:", finalData);
 
+      // FIX: Dismiss loading and show fresh success toast so it auto-closes
+      toast.dismiss(loadingToastId);
       toast.success("Item Added Successfully!", {
-        id: loadingToast,
         duration: 3000,
-        style: {
-          borderRadius: "16px",
-          background: "#1e293b",
-          color: "#fff",
-          fontWeight: "bold",
-        },
+        style: toastStyle,
+        position: "top-center",
       });
 
+      // Clear Form
       setFormData({
         title: "",
         shortDescription: "",
@@ -69,7 +71,9 @@ const AddProjectForm = () => {
       });
     } catch (error) {
       toast.error("Failed to add item. Please try again.", {
-        id: loadingToast,
+        id: loadingToastId, // Error replacing loading is fine
+        duration: 3000,
+        style: toastStyle,
       });
     }
   };
@@ -85,10 +89,8 @@ const AddProjectForm = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 flex justify-center items-center relative">
-      {/* 5. Toaster Container with your requested position */}
       <Toaster position="top-center" reverseOrder={false} />
 
-      {/* --- FORM CONTAINER --- */}
       <div className="w-full max-w-4xl bg-white rounded-[2.5rem] shadow-xl shadow-slate-200/50 border border-white overflow-hidden">
         <div className="p-8 md:p-12">
           <div className="mb-10">
@@ -101,7 +103,6 @@ const AddProjectForm = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Title - Required */}
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                 Event Title *
@@ -118,7 +119,6 @@ const AddProjectForm = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Short Description - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Short Description *
@@ -134,7 +134,6 @@ const AddProjectForm = () => {
                 />
               </div>
 
-              {/* Image URL - Optional */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Image URL (Optional)
@@ -150,7 +149,6 @@ const AddProjectForm = () => {
               </div>
             </div>
 
-            {/* Full Description - Required */}
             <div className="space-y-2">
               <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                 Full Description *
@@ -167,7 +165,6 @@ const AddProjectForm = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Price - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Price (USD) *
@@ -183,7 +180,6 @@ const AddProjectForm = () => {
                 />
               </div>
 
-              {/* Event Date - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Event Date *
@@ -198,7 +194,6 @@ const AddProjectForm = () => {
                 />
               </div>
 
-              {/* Category - Required */}
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
                   Category *
@@ -219,7 +214,6 @@ const AddProjectForm = () => {
               </div>
             </div>
 
-            {/* Submit Button */}
             <div className="pt-6">
               <button
                 type="submit"

@@ -1,28 +1,28 @@
 "use client";
 import { useParams } from "next/navigation";
 import React from "react";
-import { projects } from "@/data/events"; // Ensure this matches your export
+import { projects } from "@/data/events";
 import Card from "@/components/card/Card";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast"; // 1. Added Toaster import
 
 const Page = () => {
   const params = useParams();
   const itemId = params?.id;
 
-  // Find project by ID
-  const Detail = projects?.find((event) => event.id === parseInt(itemId));
+  // Find project by ID - Added safety for the ID parsing
+  const Detail = projects?.find((event) => event.id === Number(itemId));
 
-  // Filter related events by Category (using name or a category ID)
+  // Filter related events by Category
   const reletedEvents = projects
     ?.filter(
       (event) => event.category === Detail?.category && event.id !== Detail?.id,
     )
-    .slice(0, 3); // Limit to 3 items
+    .slice(0, 3);
 
   if (!Detail) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center font-bold text-slate-900">
         Project not found
       </div>
     );
@@ -34,8 +34,9 @@ const Page = () => {
     color: "#fff",
     fontWeight: "bold",
   };
+
   const handleReview = () => {
-    toast.success(` ReviewComming Soon`, {
+    toast.success(`Review Coming Soon`, {
       duration: 3000,
       position: "top-center",
       style: toastStyle,
@@ -44,6 +45,9 @@ const Page = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4 lg:px-12">
+      {/* 2. ADDED TOASTER COMPONENT HERE */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="max-w-7xl mx-auto space-y-16">
         <Link href="/projects">
           <button className="btn btn-ghost text-orange-500 font-bold">
@@ -55,7 +59,7 @@ const Page = () => {
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white p-6 md:p-10 rounded-[3rem] shadow-sm border border-slate-200">
           <div className="rounded-[2rem] overflow-hidden h-[400px] md:h-[500px]">
             <img
-              src={Detail?.img} // FIXED: matched to 'img'
+              src={Detail?.img}
               className="w-full h-full object-cover"
               alt={Detail?.name}
             />
@@ -72,7 +76,7 @@ const Page = () => {
             </div>
 
             <h1 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-              {Detail?.name} {/* FIXED: matched to 'name' */}
+              {Detail?.name}
             </h1>
 
             <p className="text-slate-500 text-lg leading-relaxed">
@@ -85,7 +89,6 @@ const Page = () => {
                   Date
                 </p>
                 <p className="font-bold text-slate-900">
-                  {" "}
                   {new Date(Detail.date).toLocaleDateString("en-US", {
                     month: "short",
                     day: "numeric",
@@ -99,7 +102,6 @@ const Page = () => {
                 </p>
                 <p className="font-bold text-slate-900">{Detail?.location}</p>
               </div>
-              {/* Optional: Add price to your array later, currently using fallback */}
               <div>
                 <p className="text-[10px] uppercase font-bold text-slate-400">
                   Status
@@ -112,15 +114,13 @@ const Page = () => {
           </div>
         </section>
 
-        {/* --- 2. REVIEWS (Placeholder) --- */}
-        {/* ... keep your existing review section ... */}
+        {/* --- 2. REVIEWS --- */}
         <section className="space-y-8">
           <h2 className="text-3xl font-black text-slate-900">
             Client <span className="text-orange-500 ">Reviews</span>
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left Side: Rating Input */}
             <div className="lg:col-span-1 bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-200 h-fit">
               <h4 className="text-lg font-bold text-slate-900 mb-6">
                 Leave a Rating
@@ -151,6 +151,7 @@ const Page = () => {
                     type="radio"
                     name="rating-2"
                     className="mask mask-star-2 bg-orange-400"
+                    defaultChecked
                   />
                 </div>
                 <textarea
@@ -166,7 +167,6 @@ const Page = () => {
               </div>
             </div>
 
-            {/* Right Side: Comments Display */}
             <div className="lg:col-span-2 space-y-4">
               {[1, 2].map((review) => (
                 <div

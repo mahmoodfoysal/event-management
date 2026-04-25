@@ -1,7 +1,22 @@
 "use client";
 import React from "react";
+import toast from "react-hot-toast";
 
 const Page = () => {
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    toast.success(`Submitted`, {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
+  };
   return (
     <>
       <div className="min-h-screen bg-white">
@@ -66,10 +81,7 @@ const Page = () => {
                       Email Us
                     </h4>
                     <p className="text-slate-500 text-sm">
-                      connect@eventnexus.pro
-                    </p>
-                    <p className="text-slate-500 text-sm">
-                      support@eventnexus.pro
+                      foysalcse033@gmail.com
                     </p>
                   </div>
                 </div>
@@ -96,7 +108,6 @@ const Page = () => {
                       Call Anytime
                     </h4>
                     <p className="text-slate-500 text-sm">+880 1234 567890</p>
-                    <p className="text-slate-500 text-sm">+880 1234 567891</p>
                   </div>
                 </div>
 
@@ -127,9 +138,7 @@ const Page = () => {
                     <h4 className="font-bold text-slate-900 uppercase text-xs tracking-widest mb-1">
                       Global Office
                     </h4>
-                    <p className="text-slate-500 text-sm">
-                      123 Innovation Drive, Sector 7
-                    </p>
+                    <p className="text-slate-500 text-sm">Rajshahi</p>
                     <p className="text-slate-500 text-sm">
                       Rajshahi, Bangladesh
                     </p>
@@ -162,7 +171,10 @@ const Page = () => {
               <div className="bg-white border border-slate-200 p-8 md:p-12 rounded-[3rem] shadow-sm relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-bl-[100%] -z-0"></div>
 
-                <form className="relative z-10 space-y-6">
+                <form
+                  onSubmit={handleSubmit}
+                  className="relative z-10 space-y-6"
+                >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <label className="text-[11px] font-black uppercase tracking-widest text-slate-400 px-1">

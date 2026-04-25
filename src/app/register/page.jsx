@@ -38,21 +38,23 @@ const Register = () => {
   };
 
   const handleGoogleLogin = async () => {
-    const loginToast = toast.loading("Connecting to Google...", {
+    const loginToastId = toast.loading("Connecting to Google...", {
       position: "top-center",
       style: toastStyle,
     });
     try {
       const result = await signInWithPopup(auth, provider);
+      toast.dismiss(loginToastId);
       toast.success(`Welcome, ${result.user.displayName}!`, {
-        id: loginToast,
         duration: 3000,
         style: toastStyle,
+        position: "top-center",
       });
+
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
-        id: loginToast,
+        id: loginToastId,
         duration: 3000,
         style: toastStyle,
       });
@@ -79,7 +81,7 @@ const Register = () => {
       return;
     }
 
-    const regToast = toast.loading("Creating your account...", {
+    const regToastId = toast.loading("Creating your account...", {
       position: "top-center",
       style: toastStyle,
     });
@@ -99,15 +101,17 @@ const Register = () => {
 
       await user.reload();
 
+      toast.dismiss(regToastId);
       toast.success(`Welcome aboard, ${fullName}!`, {
-        id: regToast,
         duration: 3000,
         style: toastStyle,
+        position: "top-center",
       });
+
       router.push("/");
     } catch (err) {
       toast.error(err.message, {
-        id: regToast,
+        id: regToastId,
         duration: 3000,
         style: toastStyle,
       });
