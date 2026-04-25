@@ -184,7 +184,7 @@ const ProductList = () => {
       <div className="w-full border-b border-slate-100 px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <div>
           <h1 className="text-2xl font-black text-slate-900 tracking-tight">
-            Product <span className="text-orange-500">Inventory</span>
+            Item <span className="text-orange-500">Inventory</span>
           </h1>
           <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mt-1">
             Total Items: {products.length}
