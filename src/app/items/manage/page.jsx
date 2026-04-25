@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import {
   Eye,
@@ -28,34 +28,41 @@ const ProductList = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const itemsPerPage = 9;
 
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+
   const handleDelete = (id) => {
-    const deletePromise = new Promise((resolve, reject) => {
-      if (window.confirm("Are you sure you want to delete this product?")) {
-        setTimeout(() => {
-          setProducts((prev) => prev.filter((p) => p.id !== id));
-          setSelectedProduct(null);
-          resolve();
-        }, 800);
-      } else {
-        reject("Cancelled");
-      }
+    if (!window.confirm("Are you sure you want to delete this product?")) {
+      toast.error("Deletion cancelled!", {
+        duration: 3000,
+        position: "top-center",
+        style: toastStyle,
+      });
+      return;
+    }
+
+    const deletePromise = new Promise((resolve) => {
+      setTimeout(() => {
+        setProducts((prev) => prev.filter((p) => p.id !== id));
+        setSelectedProduct(null);
+        resolve();
+      }, 800);
     });
 
-    toast.promise(
+    return toast.promise(
       deletePromise,
       {
-        loading: "Deleting item...",
+        loading: "Item deleting...",
         success: "Item removed from inventory!",
-        error: "Deletion cancelled",
+        error: "Something went wrong!",
       },
       {
-        success: { duration: 3000 },
-        style: {
-          borderRadius: "16px",
-          background: "#1e293b",
-          color: "#fff",
-          fontWeight: "bold",
-        },
+        position: "top-center",
+        style: toastStyle,
       },
     );
   };
@@ -76,9 +83,6 @@ const ProductList = () => {
 
   return (
     <div className="min-h-screen bg-white relative overflow-hidden">
-      {/* 4. Add Toaster component */}
-      <Toaster position="top-center" reverseOrder={false} />
-
       {/* --- DRAWER OVERLAY --- */}
       <div
         className={`fixed inset-0 z-50 transition-all duration-500 ${selectedProduct ? "visible" : "invisible"}`}
