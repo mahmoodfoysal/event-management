@@ -30,7 +30,6 @@ const Login = () => {
   };
 
   const handleGoogleLogin = async () => {
-    // FIX: Using a static ID to ensure replacement/dismissal works in production
     const toastId = "google-login";
     toast.loading("Authenticating with Google...", {
       id: toastId,
@@ -40,13 +39,6 @@ const Login = () => {
 
     try {
       const result = await signInWithPopup(auth, provider);
-
-      toast.success(`Welcome, ${result.user.displayName}!`, {
-        id: toastId, // FIX: Replaces the loading toast
-        style: toastStyle,
-        position: "top-center",
-        duration: 3000,
-      });
 
       router.push("/");
     } catch (err) {
@@ -86,17 +78,10 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
 
-      toast.success("Login Successful!", {
-        id: toastId, // FIX: Replaces the loading toast
-        duration: 3000,
-        style: toastStyle,
-        position: "top-center",
-      });
-
       router.push("/");
     } catch (err) {
       toast.error("Invalid email or password.", {
-        id: toastId, // FIX: Replaces loading with error
+        id: toastId,
         duration: 4000,
         style: toastStyle,
       });

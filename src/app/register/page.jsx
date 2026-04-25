@@ -101,11 +101,6 @@ const Register = () => {
       await user.reload();
 
       toast.dismiss(regToastId);
-      toast.success(`Welcome aboard, ${fullName}!`, {
-        duration: 3000,
-        style: toastStyle,
-        position: "top-center",
-      });
 
       router.push("/");
     } catch (err) {
