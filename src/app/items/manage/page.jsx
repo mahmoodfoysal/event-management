@@ -167,11 +167,11 @@ const ProductList = () => {
               <div className="pt-8 border-t border-slate-100 flex gap-3">
                 <button
                   onClick={() => handleDelete(selectedProduct.id)}
-                  className="flex-1 h-14 bg-red-50 text-red-600 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all"
+                  className="cursor-pointer flex-1 h-14 bg-red-50 text-red-600 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-red-600 hover:text-white transition-all"
                 >
                   <Trash2 className="w-4 h-4" /> Delete Item
                 </button>
-                <button className="flex-1 h-14 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-orange-500 transition-all">
+                <button className="cursor-pointer flex-1 h-14 bg-slate-900 text-white rounded-2xl font-bold text-sm hover:bg-orange-500 transition-all">
                   Edit Details
                 </button>
               </div>
@@ -246,13 +246,13 @@ const ProductList = () => {
                   <div className="flex justify-end gap-2">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="p-2.5 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-orange-500 hover:border-orange-100 hover:shadow-lg transition-all"
+                      className="cursor-pointer p-2.5 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-orange-500 hover:border-orange-100 hover:shadow-lg transition-all"
                     >
                       <Eye className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => handleDelete(product.id)}
-                      className="p-2.5 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-red-500 transition-all"
+                      className="cursor-pointer p-2.5 bg-white border border-slate-100 rounded-xl text-slate-400 hover:text-red-500 transition-all"
                     >
                       <Trash2 className="w-5 h-5" />
                     </button>

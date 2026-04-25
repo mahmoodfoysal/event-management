@@ -33,6 +33,7 @@ Odyssey Event Management
 - People can reach out from the contact page.
 - Add page, add new item. This page is protected by user login.
 - The Manage Item page can manage items. This page also user binding.
+- Footer are linkable. User can visit another route from footer.
 
 ## Future Work
 

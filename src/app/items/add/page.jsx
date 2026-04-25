@@ -209,7 +209,7 @@ const AddProjectForm = () => {
             <div className="pt-6">
               <button
                 type="submit"
-                className="w-full h-16 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-orange-500 transition-all duration-500 shadow-xl shadow-slate-200 active:scale-[0.98]"
+                className="cursor-pointer w-full h-16 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-[0.3em] hover:bg-orange-500 transition-all duration-500 shadow-xl shadow-slate-200 active:scale-[0.98]"
               >
                 Submit
               </button>

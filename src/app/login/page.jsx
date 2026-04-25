@@ -204,7 +204,7 @@ const Login = () => {
               <div className="pt-6">
                 <button
                   type="submit"
-                  className="w-full h-14 bg-orange-500 text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-xl shadow-orange-100 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.98] transition-all"
+                  className="cursor-pointer w-full h-14 bg-orange-500 text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] shadow-xl shadow-orange-100 hover:bg-orange-600 hover:scale-[1.01] active:scale-[0.98] transition-all"
                 >
                   Login Account
                 </button>
@@ -222,7 +222,7 @@ const Login = () => {
               <button
                 onClick={handleGoogleLogin}
                 type="button"
-                className="w-full h-14 border border-slate-100 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-50 transition-all text-xs font-bold text-slate-700 shadow-sm"
+                className="cursor-pointer w-full h-14 border border-slate-100 rounded-2xl flex items-center justify-center gap-3 hover:bg-slate-50 transition-all text-xs font-bold text-slate-700 shadow-sm"
               >
                 <img
                   src="https://www.svgrepo.com/show/475656/google-color.svg"
