@@ -242,6 +242,27 @@ const NavBar = () => {
                 </li>
               ))}
 
+              {user && (
+                <li>
+                  <Link
+                    href="/items/add"
+                    className={`text-lg font-bold py-4 border-b border-base-200 ${pathname.startsWith("/login") ? "active" : ""}`}
+                  >
+                    Add Items
+                  </Link>
+                </li>
+              )}
+              {user && (
+                <li>
+                  <Link
+                    href="/items/manage"
+                    className={`text-lg font-bold py-4 border-b border-base-200 ${pathname.startsWith("/login") ? "active" : ""}`}
+                  >
+                    Manage Items
+                  </Link>
+                </li>
+              )}
+
               {user ? (
                 <li>
                   <button
