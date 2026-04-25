@@ -40,6 +40,7 @@ Odyssey Event Management
 - Single project details
 - Protected add and manage item page
 - Linkable footer
+- Mobile Screen protected route located beside hamburg button also protected route find in hamburg drawer
 
 ## Setup Project
 
