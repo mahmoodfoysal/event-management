@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { addStoredItem } from "@/lib/itemsStorage";
 
 const AddProjectForm = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
 
   const [formData, setFormData] = useState({
+    id: "",
     title: "",
     shortDescription: "",
     fullDescription: "",
@@ -23,6 +25,14 @@ const AddProjectForm = () => {
     background: "#1e293b",
     color: "#fff",
     fontWeight: "bold",
+  };
+
+  const categoryIdMap = {
+    Tech: 1,
+    Art: 2,
+    Music: 3,
+    Business: 4,
+    Exhibition: 5,
   };
 
   const handleChange = (e) => {
@@ -42,10 +52,18 @@ const AddProjectForm = () => {
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const finalData = {
-        ...formData,
-        id: Date.now(),
-        category_id: 1,
+        id: Number(formData.id) || Date.now(),
+        title: formData.title,
+        description: formData.shortDescription,
+        long_description: formData.fullDescription,
+        price: Number(formData.price),
+        date: formData.date,
+        category: formData.category,
+        image: formData.imageUrl || "",
+        location: "TBD",
+        category_id: categoryIdMap[formData.category] || 1,
       };
+      addStoredItem(finalData);
 
       toast.dismiss(loadingToastId);
       toast.success("Item Added Successfully!", {
@@ -55,6 +73,7 @@ const AddProjectForm = () => {
       });
 
       setFormData({
+        id: "",
         title: "",
         shortDescription: "",
         fullDescription: "",
@@ -95,19 +114,37 @@ const AddProjectForm = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
-                Event Title *
-              </label>
-              <input
-                required
-                name="title"
-                value={formData.title}
-                onChange={handleChange}
-                type="text"
-                placeholder="e.g. Global Tech Summit 2026"
-                className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 transition-all font-semibold text-slate-900"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
+                  ID *
+                </label>
+                <input
+                  required
+                  name="id"
+                  value={formData.id}
+                  onChange={handleChange}
+                  type="number"
+                  min="1"
+                  placeholder="e.g. 101"
+                  className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 transition-all font-semibold text-slate-900"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">
+                  Event Title *
+                </label>
+                <input
+                  required
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  type="text"
+                  placeholder="e.g. Global Tech Summit 2026"
+                  className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 transition-all font-semibold text-slate-900"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -135,7 +172,7 @@ const AddProjectForm = () => {
                   value={formData.imageUrl}
                   onChange={handleChange}
                   type="url"
-                  placeholder="https://images.unsplash.com/..."
+                  placeholder="Enter Url"
                   className="w-full h-14 bg-slate-50 border border-slate-100 rounded-2xl px-6 focus:outline-none focus:border-orange-500 transition-all font-semibold text-slate-900"
                 />
               </div>

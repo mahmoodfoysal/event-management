@@ -48,8 +48,7 @@ const Card = ({ event }) => {
         </h3>
 
         <p className="text-slate-500 text-[11px] line-clamp-2 leading-relaxed mb-4">
-          Experience the most anticipated{" "}
-          {event.category?.toLowerCase() || "event"} of the year.
+          {event.description}
         </p>
 
         {/* Action Section - Fixed for 4 items in a row */}

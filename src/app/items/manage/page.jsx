@@ -15,14 +15,14 @@ import {
   MapPin,
   Tag,
 } from "lucide-react";
-import { events } from "@/data/events";
 import Link from "next/link";
+import { deleteStoredItem, getStoredItems } from "@/lib/itemsStorage";
 
 const ProductList = () => {
   const { user, loading } = useAuth();
   const router = useRouter();
 
-  const [products, setProducts] = useState(events);
+  const [products, setProducts] = useState(() => getStoredItems());
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const itemsPerPage = 9;
@@ -46,7 +46,8 @@ const ProductList = () => {
 
     const deletePromise = new Promise((resolve) => {
       setTimeout(() => {
-        setProducts((prev) => prev.filter((p) => p.id !== id));
+        const nextItems = deleteStoredItem(id);
+        setProducts(nextItems);
         setSelectedProduct(null);
         resolve();
       }, 800);

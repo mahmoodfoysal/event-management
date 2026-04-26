@@ -145,7 +145,7 @@ const Subscription = () => {
                   <input
                     type="tel"
                     required
-                    placeholder="+1 . . . "
+                    placeholder="+88 . . . "
                     className="w-full h-14 bg-slate-50 border-b-2 border-slate-100 px-14 text-sm font-bold text-slate-900 focus:outline-none focus:border-orange-500 focus:bg-white transition-all"
                   />
                 </div>

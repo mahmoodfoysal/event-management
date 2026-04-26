@@ -1,18 +1,65 @@
 "use client";
 import { useParams } from "next/navigation";
-import React from "react";
-import { events } from "@/data/events";
+import React, { useState } from "react";
 import Card from "@/components/card/Card";
 import Link from "next/link";
+import { getStoredItems } from "@/lib/itemsStorage";
+import toast from "react-hot-toast";
 
 const Page = () => {
   const params = useParams();
   const itemId = params?.id;
-  const Detail = events?.find((event) => event.id === parseInt(itemId));
-  const reletedEvents = events?.filter(
+  const [allEvents] = useState(() => getStoredItems());
+
+  const Detail = allEvents?.find((event) => event.id === parseInt(itemId));
+  const reletedEvents = allEvents?.filter(
     (event) =>
       event.category_id === Detail?.category_id && event.id !== Detail?.id,
   );
+
+  const toastStyle = {
+    borderRadius: "16px",
+    background: "#1e293b",
+    color: "#fff",
+    fontWeight: "bold",
+  };
+
+  const handleBook = () => {
+    toast.success("Booking coming soon!", {
+      duration: 3000,
+      position: "top-center",
+      style: toastStyle,
+    });
+  };
+
+  if (!Detail) {
+    return (
+      <div className="min-h-screen bg-slate-50 py-12 px-4 lg:px-12">
+        <div className="max-w-7xl mx-auto space-y-10">
+          <Link href="/items">
+            <button className="btn btn-ghost text-orange-500 font-bold">
+              ← Back to All Items
+            </button>
+          </Link>
+
+          <section className="bg-white rounded-[3rem] border border-slate-200 shadow-sm py-24 px-6 text-center">
+            <h1 className="text-3xl md:text-4xl font-black text-slate-900">
+              Item Not Found
+            </h1>
+            <p className="text-slate-500 mt-3 max-w-xl mx-auto">
+              The item you are trying to view does not exist or may have been
+              removed.
+            </p>
+            <Link href="/items" className="inline-block mt-8">
+              <button className="btn btn-primary rounded-xl px-8">
+                Browse Items
+              </button>
+            </Link>
+          </section>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -98,12 +145,15 @@ const Page = () => {
                     Price
                   </p>
                   <p className="font-bold text-slate-900">
-                    ${Detail.price} / Person
+                    ${Detail?.price} / Person
                   </p>
                 </div>
               </div>
 
-              <button className="btn btn-primary btn-lg rounded-2xl text-white font-bold w-full md:w-fit px-12">
+              <button
+                onClick={handleBook}
+                className="btn btn-primary btn-lg rounded-2xl text-white font-bold w-full md:w-fit px-12"
+              >
                 Book Your Seat Now
               </button>
             </div>

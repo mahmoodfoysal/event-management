@@ -1,20 +1,21 @@
 "use client";
 import React, { useState } from "react";
-import { events } from "@/data/events";
 import Card from "@/components/card/Card";
+import { getStoredItems } from "@/lib/itemsStorage";
 
 const Page = () => {
+  const [allEvents] = useState(() => getStoredItems());
   const [search, setSearch] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedlocation, setSelectedlocation] = useState("");
   const [price, setPrice] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const ITEMS_PER_PAGE = 9; // Fits 4-column layout better
+  const ITEMS_PER_PAGE = 8;
 
-  const maxPrice = Math.max(...events.map((e) => e.price), 0);
+  const maxPrice = Math.max(...allEvents.map((e) => e.price), 0);
 
-  const filteredEvents = events.filter((event) => {
+  const filteredEvents = allEvents.filter((event) => {
     const matchSearch =
       event.title.toLowerCase().includes(search.toLowerCase()) ||
       event.location.toLowerCase().includes(search.toLowerCase());
@@ -39,14 +40,14 @@ const Page = () => {
 
   const categories = [
     ...new Map(
-      events.map((e) => [
+      allEvents.map((e) => [
         e.category_id,
         { id: e.category_id, name: e.category },
       ]),
     ).values(),
   ];
 
-  const locations = [...new Set(events.map((e) => e.location))];
+  const locations = [...new Set(allEvents.map((e) => e.location))];
 
   const handleCategoryChange = (id) => {
     setSelectedCategories((prev) =>
@@ -74,7 +75,7 @@ const Page = () => {
         <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-8">
           <div>
             <h1 className="text-4xl font-black text-slate-900 tracking-tight">
-              Featured <span className="text-orange-500 italic">Events</span>
+              Featured <span className="text-orange-500">Items</span>
             </h1>
             <p className="text-slate-500 font-medium mt-2">
               Showing {filteredEvents.length} results from our collection

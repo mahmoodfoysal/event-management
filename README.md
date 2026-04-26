@@ -1,103 +1,109 @@
-## Project Name
+# Odyssey Event Management
 
-Odyssey Event Management
+A modern event management web application built with Next.js App Router.  
+This project includes public pages, Firebase authentication, and protected item management pages.
 
-## Live
+## Live Demo
 
--Link : https://event-management-foysal.vercel.app/
+- Live URL: [https://event-management-foysal.vercel.app/](https://event-management-foysal.vercel.app/)
 
-## Uses technology
+## Repository
 
-- Next.js
+- GitHub: [https://github.com/mahmoodfoysal/event-management](https://github.com/mahmoodfoysal/event-management)
+
+## Technologies Used
+
+- Next.js (App Router)
+- React
 - Tailwind CSS
-- Daisy UI
-- CSS
-- JSX
-- Firebase authentication
+- DaisyUI
+- Firebase Authentication
 - React Hot Toast
-- Material Icon
-- Local data
+- Lucide Icons
+- LocalStorage (for item persistence)
 
-## Project Description
+## Key Features
 
-- This project is event management focus website.
-- We planing event and also selling the event tickets in collaboration with client.
-- Landing page have a hero section, about our service, upcoming event, successful project, subscription form, banner. Navbar and footer rape all the website.
-- The items page has a show upcoming event list and client can booked. Visitor also can see details click by view details button.
-- The project page shows our successfully arranged project who have been done.
-- The About page shows our company and services.
-- People can reach out from the contact page.
-- Add page, add new item. This page is protected by user login.
-- The Manage Item page can manage items. This page also user binding.
-- Footer are linkable. User can visit another route from footer.
+- Responsive landing page with consistent layout and polished UI
+- Sticky navbar with authenticated user dropdown
+- Email/password authentication with Firebase
+- Google login support
+- Items page with search, multi-field filtering, and pagination
+- Dynamic item details page (`/items/[id]`) with related items
+- Protected Add Item page (`/items/add`)
+- Protected Manage Items page (`/items/manage`) with view and delete actions
+- Invalid item handling with a dedicated "Item Not Found" UI
 
-## Features
+## Setup and Installation
 
-- User authentication
-- Item page shows all upcomming items
-- Specific Item Details
-- Project page show completed project
-- Single project details
-- Protected add and manage item page
-- Linkable footer
-- Mobile Screen protected route located beside hamburg button also protected route find in hamburg drawer
+### 1) Clone the repository
 
-## Setup Project
+```bash
+git clone https://github.com/mahmoodfoysal/event-management
+cd event-management
+```
 
-1. Clone the Repository
-   git clone https://github.com/mahmoodfoysal/event-management
-   cd event-management
-2. Install Dependencies
+### 2) Install dependencies
 
-Make sure you have Node.js installed (v18 or later recommended).
-
+```bash
 npm install
+```
 
-# or
+### 3) Configure environment variables
 
-yarn install
+Create a `.env.local` file in the root directory and add:
 
-# or
-
-pnpm install 3. Setup Environment Variables
-
-Create a .env.local file in the root directory and add your environment variables:
-
-NEXT_PUBLIC_API_URL=your_api_url
+```env
 NEXT_PUBLIC_FIREBASE_API_KEY=your_key
 NEXT_PUBLIC_AUTH_DOMAIN=your_domain
+NEXT_PUBLIC_PROJECT_ID=your_project_id
+NEXT_PUBLIC_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_APP_ID=your_app_id
+```
 
-⚠️ Do not commit .env.local to version control.
+Do not commit `.env.local` to version control.
 
-4. Run the Development Server
-   npm run dev
+### 4) Run the development server
 
-Now open your browser and visit:
+```bash
+npm run dev
+```
 
-http://localhost:3000 5. Build for Production
+Open [http://localhost:3000](http://localhost:3000).
+
+### 5) Build for production
+
+```bash
 npm run build
+```
 
-## Routes
+## Route Summary
 
-- Items
-- Item details
-- Projects
-- Project Details
-- About
-- Contact
-- Login
-- Refistration
-- Add Items
-- Manage Items
+### Public Routes
 
-## Protected Route
+- `/` - Landing page
+- `/items` - Items listing with search/filter
+- `/items/[id]` - Dynamic item details page
+- `/projects` - Projects page
+- `/projects/[id]` - Project details page
+- `/about` - About page
+- `/contact` - Contact page
+- `/login` - Login page
+- `/register` - Registration page
 
-- After login user can visit Add item and manage item page.
-- If user logged in then they can not visit login and registration page.
+### Protected Routes
 
-## Future Work
+- `/items/add` - Add new item (authenticated users only)
+- `/items/manage` - Manage items (authenticated users only)
 
-- Booking event
-- Get ticket collect after booking
-- Contact with us page complete functionality.
-- Add payment system
+## Authentication Behavior
+
+- Unauthenticated users trying to access protected routes are redirected to `/login`.
+- Authenticated users are redirected to `/` when visiting `/login` or `/register`.
+
+## Future Improvements
+
+- Booking and ticket checkout flow
+- Payment gateway integration
+- Full contact form backend integration

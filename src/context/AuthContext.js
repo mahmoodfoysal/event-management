@@ -11,9 +11,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
+    const unsubscribe = onAuthStateChanged(auth, (nextUser) => {
+      Promise.resolve().then(() => {
+        setUser(nextUser);
+        setLoading(false);
+      });
     });
 
     return () => unsubscribe();

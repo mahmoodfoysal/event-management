@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 const Testimonial = () => {
   const [active, setActive] = useState(0);
@@ -68,9 +68,9 @@ const Testimonial = () => {
     },
   ];
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActive((prev) => (prev + 1 === data.length ? 0 : prev + 1));
-  };
+  }, [data.length]);
 
   const handlePrev = () => {
     setActive((prev) => (prev === 0 ? data.length - 1 : prev - 1));
@@ -82,7 +82,7 @@ const Testimonial = () => {
       handleNext();
     }, 2000);
     return () => clearInterval(interval);
-  }, [active, isPaused]);
+  }, [handleNext, isPaused]);
 
   return (
     <section
