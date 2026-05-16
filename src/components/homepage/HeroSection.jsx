@@ -98,7 +98,7 @@ const HeroSection = () => {
                 Trusted by 500+ organizers
               </p>
               <p className="text-xs text-slate-500 font-medium tracking-wide uppercase">
-                Joining the odyssey worldwide
+                Joining the Aura worldwide
               </p>
             </div>
           </div>

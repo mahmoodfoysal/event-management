@@ -94,7 +94,7 @@ const Login = () => {
 
           <div className="relative z-10">
             <h2 className="text-3xl font-black tracking-tighter italic text-orange-500">
-              Odyssey Event Management
+              Aura Event Management
             </h2>
           </div>
 

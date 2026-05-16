@@ -60,7 +60,7 @@ const NavBar = () => {
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2 group-hover:scale-105 transition-transform">
                     <img
                       src="https://plus.unsplash.com/premium_vector-1683141234968-b4f861c0546a?q=80&w=966&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                      alt="Odyssey Logo"
+                      alt="aura Logo"
                       className="object-cover"
                     />
                   </div>
@@ -68,7 +68,7 @@ const NavBar = () => {
 
                 {/* --- Brand Name --- */}
                 <span className="font-display text-2xl font-extrabold tracking-tighter text-slate-900 group-hover:opacity-80">
-                  Odyssey<span className="text-primary"> Event</span>
+                  Aura<span className="text-primary"> Event</span>
                 </span>
               </Link>
             </div>

@@ -28,7 +28,7 @@ const Footer = () => {
             {/* Column 1: Brand & Bio */}
             <div className="lg:col-span-1 space-y-6">
               <h2 className="font-display text-2xl font-black text-slate-900 tracking-tighter">
-                Odyssey {""}
+                Aura {""}
                 <span className="text-orange-500">Event</span>
               </h2>
               <p className="text-sm leading-relaxed text-slate-500">
@@ -195,7 +195,7 @@ const Footer = () => {
 
           {/* Bottom Bar */}
           <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">
-            <p>© 2026 Odyssey Event ALL RIGHTS RESERVED by Foysal Mahmood.</p>
+            <p>© 2026 Aura Event ALL RIGHTS RESERVED by Foysal Mahmood.</p>
             <div className="flex gap-8">
               <a
                 href="#"

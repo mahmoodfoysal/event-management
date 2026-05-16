@@ -1,11 +1,11 @@
-# Odyssey Event Management
+# Aura Event Management
 
 A modern event management web application built with Next.js App Router.  
 This project includes public pages, Firebase authentication, and protected item management pages.
 
 ## Live Demo
 
-- Live URL: [https://event-management-foysal.vercel.app/](https://event-management-foysal.vercel.app/)
+- Live URL: [https://aura-event-planner.netlify.app/](https://aura-event-planner.netlify.app/)
 
 ## Repository
 

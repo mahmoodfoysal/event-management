@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Odyssey Event",
-  description: "Odyssey Event by Foysal Mahmood",
+  title: "Aura Event | By Foysal Mahmood",
+  description: "Aura Event by Foysal Mahmood",
 };
 
 export default function RootLayout({ children }) {
