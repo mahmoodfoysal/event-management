@@ -14,7 +14,6 @@ This project includes public pages, Firebase authentication, and protected item 
 ## Technologies Used
 
 - Next.js (App Router)
-- React
 - Tailwind CSS
 - DaisyUI
 - Firebase Authentication
